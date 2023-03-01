@@ -133,7 +133,7 @@ export const themeSettings = (mode: any) => {
     return {
         palette: {
             mode: mode,
-            ...(mode === 'dark' ?
+            ...(mode === 'light' ?
                 {
                     primary: {
                         main: colors.primary[500],
@@ -147,12 +147,12 @@ export const themeSettings = (mode: any) => {
                         light: colors.grey[100],
                     },
                     background: {
-                        default: colors.primary[500],
+                        default: colors.grey[900],
                     }
                 } :
                 {
                     primary: {
-                        main: colors.primary[100],
+                        main: colors.primary[400],
                     },
                     secondary: {
                         main: colors.green[500]
@@ -204,7 +204,7 @@ export const ColorModeContext = createContext({
 
 export const useMode = () => {
 
-    const [mode, setMode] = useState<PaletteMode>('light');
+    const [mode, setMode] = useState<PaletteMode>('dark');
     const colorMode = useMemo(
       () => ({
         toggleColorMode: () => {
