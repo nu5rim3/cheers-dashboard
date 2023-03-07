@@ -3,7 +3,7 @@ import { ColorModeContext, useMode } from './theme';
 import { Box, Button, CssBaseline, Stack, ThemeProvider } from '@mui/material';
 function App() {
 
-  const [theme, colorMode] = useMode();
+  const [theme, colorMode, mode] = useMode();
 
   return (
     <ColorModeContext.Provider value={colorMode}>
@@ -15,7 +15,7 @@ function App() {
           <Box>
             <Stack spacing={2} direction='row'>
               <Button variant="text">Text</Button>
-              <Button variant="contained" color='primary'>Contained</Button>
+              <Button variant="contained" color='primary' onClick={() => colorMode.toggleColorMode()}>{mode}</Button>
               <Button variant="outlined">Outlined</Button>
             </Stack>
             <Stack spacing={2} direction='row'>

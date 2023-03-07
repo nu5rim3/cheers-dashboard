@@ -204,7 +204,7 @@ export const ColorModeContext = createContext({
 
 export const useMode = () => {
 
-    const [mode, setMode] = useState<PaletteMode>('dark');
+    const [mode, setMode] = useState<PaletteMode>('light');
     const colorMode = useMemo(
       () => ({
         toggleColorMode: () => {
@@ -220,5 +220,5 @@ export const useMode = () => {
       [mode],
     );
 
-    return [theme, colorMode] as const;
+    return [theme, colorMode, mode] as const;
 }
