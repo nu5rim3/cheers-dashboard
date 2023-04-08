@@ -49,6 +49,10 @@
       "last 1 safari version"
     ]
   },
+  "engines": {
+    "node": "16.14.0",
+    "npm": "8.4.1"
+  },
   "devDependencies": {
     "@types/lodash": "^4.14.192"
   }
