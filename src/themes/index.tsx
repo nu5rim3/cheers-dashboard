@@ -1,42 +1,7 @@
-// import { Theme, createTheme } from "@mui/material";
 import Colors from "./theme";
 import { ThemeProvider as MUIThemeProvider, Theme, createTheme } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import componentsOverride from './overrides';
-
-// const darkPaletteColor = Colors('dark');
-// const lightPaletteColor = Colors('light');
-
-// export const lightTheme:Theme = createTheme({
-//   palette: {
-//     mode: "light",
-//     primary: {
-//       main: lightPaletteColor.primary[500]
-//     },
-//     background: {
-//       paper: "#f2f2f2",
-//     },
-//     text: {
-//       primary: "#11111",
-//     },
-//   },
-// });
-
-// export const darkTheme:Theme = createTheme({
-//   palette: {
-//     mode: "dark",
-//     primary: {
-//       main: darkPaletteColor.primary[400]
-//     },
-//     background: {
-//       paper: "#222",
-//     },
-//     text: {
-//       primary: "#fff",
-//     },
-//   },
-// });
-
 
 interface ThemeProviderProps {
   children: React.ReactNode;
