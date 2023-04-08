@@ -2,6 +2,7 @@ import Colors from "./theme";
 import { ThemeProvider as MUIThemeProvider, Theme, createTheme } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import componentsOverride from './overrides';
+import Typography from "./typography";
 
 interface ThemeProviderProps {
   children: React.ReactNode;
@@ -34,7 +35,25 @@ const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         paper: paletteColor.grey[900],
         default: paletteColor.grey[900]
       }
-    }
+    },
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 768,
+        md: 1024,
+        lg: 1266,
+        xl: 1536
+      }
+    },
+    direction: 'ltr',
+    mixins: {
+      toolbar: {
+        minHeight: 60,
+        paddingTop: 8,
+        paddingBottom: 8
+      }
+    },
+    ...Typography
   });
 
   customTheme.components = componentsOverride(customTheme);
