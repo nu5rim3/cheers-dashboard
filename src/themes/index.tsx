@@ -24,7 +24,7 @@ const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
       },
       text: {
         primary: paletteColor.grey[200],
-        secondary: paletteColor.grey[200],
+        secondary: paletteColor.grey[800],
         disabled: paletteColor.grey[400]
       },
       action: {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
+import { styled, useTheme, Theme, CSSObject, withStyles } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
@@ -20,7 +20,12 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { useDispatch, useSelector } from 'react-redux';
 import Switch from '@mui/material/Switch/Switch';
+
+import routePath from '../../../config';
+
 import { toggleTheme } from '../../../store/reducers/themeSlice';
+import SvgIcon from '@mui/icons-material/Menu';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -99,6 +104,12 @@ interface MiniDrawerProps {
 
 const MiniDrawer: React.FC<MiniDrawerProps> = ({ children }) => {
     const theme = useTheme();
+
+    const currentPath = useLocation().pathname;
+
+    const fullUrl = currentPath.split('/');
+    const urlEntry = `/${fullUrl[1]}`
+
     const [open, setOpen] = React.useState(false);
 
     const customTheme = useSelector((state: any) => state.theme);
@@ -113,6 +124,8 @@ const MiniDrawer: React.FC<MiniDrawerProps> = ({ children }) => {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+
+    console.log(urlEntry)
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -148,31 +161,36 @@ const MiniDrawer: React.FC<MiniDrawerProps> = ({ children }) => {
                 </DrawerHeader>
                 <Divider />
                 <List>
-                    {['DashBoard', 'Foods', 'Beverages', 'Tables'].map((text, index) => (
-                        <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-                            <ListItemButton
+                    {routePath.map((item: any) => (
+                        <ListItemButton
+                            key={item.label}
+                            disableGutters={true}
+                            dense={true}
+                            autoFocus={true}
+                            component={Link} to={item.path}
+                            selected={urlEntry === item.path}
+                            // selected={true}
+                            sx={{
+                                minHeight: 48,
+                                justifyContent: open ? 'initial' : 'center',
+                                px: 2.5                    
+                            }}
+                        >
+                            <ListItemIcon
                                 sx={{
-                                    minHeight: 48,
-                                    justifyContent: open ? 'initial' : 'center',
-                                    px: 2.5,
+                                    minWidth: 0,
+                                    mr: open ? 3 : 'auto',
+                                    justifyContent: 'center',
                                 }}
                             >
-                                <ListItemIcon
-                                    sx={{
-                                        minWidth: 0,
-                                        mr: open ? 3 : 'auto',
-                                        justifyContent: 'center',
-                                    }}
-                                >
-                                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                                </ListItemIcon>
-                                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-                            </ListItemButton>
-                        </ListItem>
+                                {item.icon}
+                            </ListItemIcon>
+                            <ListItemText primary={item.label} sx={{ opacity: open ? 1 : 0 }} />
+                        </ListItemButton>
                     ))}
                 </List>
-                <Divider />
-                <List>
+                {/* <Divider /> */}
+                {/* <List>
                     {['Profile', 'Payments', 'Contact'].map((text, index) => (
                         <ListItem key={text} disablePadding sx={{ display: 'block' }}>
                             <ListItemButton
@@ -195,7 +213,7 @@ const MiniDrawer: React.FC<MiniDrawerProps> = ({ children }) => {
                             </ListItemButton>
                         </ListItem>
                     ))}
-                </List>
+                </List> */}
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                 <DrawerHeader />
