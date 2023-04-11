@@ -1,16 +1,14 @@
 import Box from '@mui/material/Box/Box';
 import Paper from '@mui/material/Paper/Paper';
 import React from 'react'
-import Header from '../../components/Header';
 
-const Tables = () => {
+const Support = () => {
     return (
         <>
             <Paper>
-                <Box p={8}>
-                    <Header title={'Tables List'} />
+                <Box pt={1} pb={1}>
                     <ul>
-                        <li>CRUD Tables</li>
+                        <li>CRUD Support</li>
                         <li>perview item</li>
                         <li>availablity</li>
                     </ul>
@@ -20,4 +18,4 @@ const Tables = () => {
     )
 }
 
-export default Tables;
+export default Support;

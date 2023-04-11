@@ -5,11 +5,13 @@ import Loadable from '../components/Loadable';
 import MainLayout from '../layout/MainLayout';
 import Dashboard from '../pages/dashboard';
 import Foods from '../pages/Foods';
-import Beverages from '../pages/Tables';
+import Beverages from '../pages/Beverages';
 import Tables from '../pages/Tables';
 import Profile from '../pages/Profile';
 import Payments from '../pages/Payments';
-import Contact from '../pages/Contact';
+import Reviews from '../pages/Review';
+import Customers from '../pages/Customers';
+import Support from '../pages/Support';
 
 // render - dashboard
 // const Dashboard = Loadable(lazy(() => import('pages/dashboard')));
@@ -46,16 +48,24 @@ const MainRoutes = {
             element: <Tables />
         },
         {
-            path: 'profile',
-            element: <Profile />
+            path: 'customers',
+            element: <Customers />
         },
         {
             path: 'payments',
             element: <Payments />
         },
         {
-            path: 'contact',
-            element: <Contact />
+            path: 'support',
+            element: <Support />
+        },
+        {
+            path: 'reviews',
+            element: <Reviews />
+        },
+        {
+            path: 'profile',
+            element: <Profile />
         },
         // {
         //     path: 'dashboard',

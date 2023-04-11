@@ -2,13 +2,13 @@ import Box from '@mui/material/Box/Box';
 import Paper from '@mui/material/Paper/Paper';
 import React from 'react'
 
-const Contact = () => {
+const Reviews = () => {
     return (
         <>
             <Paper>
                 <Box pt={1} pb={1}>
                     <ul>
-                        <li>CRUD Contact</li>
+                        <li>CRUD Reviews</li>
                         <li>perview item</li>
                         <li>availablity</li>
                     </ul>
@@ -18,4 +18,4 @@ const Contact = () => {
     )
 }
 
-export default Contact;
+export default Reviews;

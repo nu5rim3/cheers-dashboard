@@ -2,9 +2,11 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import DinnerDiningIcon from '@mui/icons-material/DinnerDining';
 import LiquorIcon from '@mui/icons-material/Liquor';
 import TableRestaurantIcon from '@mui/icons-material/TableRestaurant';
-import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import ReviewsIcon from '@mui/icons-material/Reviews';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 
 interface IRoutePath {
     label: string,
@@ -44,9 +46,16 @@ const routePath: IRoutePath[] = [
         level: 0
     },
     {
-        label: 'Profile',
-        path: '/profile',
-        icon: <ManageAccountsIcon />,
+        label: 'Customers',
+        path: '/customers',
+        icon: <PeopleAltIcon />,
+        active: false,
+        level: 1
+    },
+    {
+        label: 'Reviews',
+        path: '/reviews',
+        icon: <ReviewsIcon />,
         active: false,
         level: 1
     },
@@ -58,9 +67,9 @@ const routePath: IRoutePath[] = [
         level: 1
     },
     {
-        label: 'Contact',
-        path: '/contact',
-        icon: <ConnectWithoutContactIcon />,
+        label: 'Support',
+        path: '/support',
+        icon: <SupportAgentIcon />,
         active: false,
         level: 1
     }

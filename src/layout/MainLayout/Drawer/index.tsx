@@ -125,8 +125,6 @@ const MiniDrawer: React.FC<MiniDrawerProps> = ({ children }) => {
         setOpen(false);
     };
 
-    console.log(urlEntry)
-
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
