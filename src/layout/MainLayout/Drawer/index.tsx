@@ -12,11 +12,12 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
+// import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { useDispatch, useSelector } from 'react-redux';
 import Switch from '@mui/material/Switch/Switch';
@@ -26,6 +27,8 @@ import routePath from '../../../config';
 import { toggleTheme } from '../../../store/reducers/themeSlice';
 import SvgIcon from '@mui/icons-material/Menu';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import Badge from '@mui/material/Badge/Badge';
+import { Tooltip } from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -142,13 +145,47 @@ const MiniDrawer: React.FC<MiniDrawerProps> = ({ children }) => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div">
-                        Cheers Dashboard
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="div"
+                        sx={{ display: { xs: 'none', sm: 'block' } }}
+                    >
+                        Cheers
                     </Typography>
-                    <Switch
-                        checked={customTheme.darkTheme}
-                        onChange={() => dispatch(toggleTheme())}
-                    />
+                    <Box sx={{ flexGrow: 1 }} />
+                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                        <Switch
+                            checked={customTheme.darkTheme}
+                            onChange={() => dispatch(toggleTheme())}
+                        />
+                        <IconButton
+                            size="large"
+                            aria-label="show 4 new mails"
+                        >
+                            <Badge badgeContent={4} color="error">
+                                <MailIcon />
+                            </Badge>
+                        </IconButton>
+                        <IconButton
+                            size="large"
+                            aria-label="show 17 new notifications"
+                        >
+                            <Badge badgeContent={17} color="error">
+                                <NotificationsIcon />
+                            </Badge>
+                        </IconButton>
+                        <IconButton
+                            size="large"
+                            edge="end"
+                            aria-label="account of current user"
+                            // aria-controls={menuId}
+                            aria-haspopup="true"
+                        // onClick={handleProfileMenuOpen}
+                        >
+                            <AccountCircle />
+                        </IconButton>
+                    </Box>
                 </Toolbar>
             </AppBar>
             <Drawer variant="permanent" open={open}>
@@ -160,31 +197,33 @@ const MiniDrawer: React.FC<MiniDrawerProps> = ({ children }) => {
                 <Divider />
                 <List>
                     {routePath.map((item: any) => (
-                        <ListItemButton
-                            key={item.label}
-                            disableGutters={true}
-                            dense={true}
-                            autoFocus={true}
-                            component={Link} to={item.path}
-                            selected={urlEntry === item.path}
-                            // selected={true}
-                            sx={{
-                                minHeight: 48,
-                                justifyContent: open ? 'initial' : 'center',
-                                px: 2.5                    
-                            }}
-                        >
-                            <ListItemIcon
+                        <Tooltip title={item.label} placement="right">
+                            <ListItemButton
+                                key={item.label}
+                                disableGutters={true}
+                                dense={true}
+                                autoFocus={true}
+                                component={Link} to={item.path}
+                                selected={urlEntry === item.path}
+                                // selected={true}
                                 sx={{
-                                    minWidth: 0,
-                                    mr: open ? 3 : 'auto',
-                                    justifyContent: 'center',
+                                    minHeight: 48,
+                                    justifyContent: open ? 'initial' : 'center',
+                                    px: 2.5
                                 }}
                             >
-                                {item.icon}
-                            </ListItemIcon>
-                            <ListItemText primary={item.label} sx={{ opacity: open ? 1 : 0 }} />
-                        </ListItemButton>
+                                <ListItemIcon
+                                    sx={{
+                                        minWidth: 0,
+                                        mr: open ? 3 : 'auto',
+                                        justifyContent: 'center',
+                                    }}
+                                >
+                                    {item.icon}
+                                </ListItemIcon>
+                                <ListItemText primary={item.label} sx={{ opacity: open ? 1 : 0 }} />
+                            </ListItemButton>
+                        </Tooltip>
                     ))}
                 </List>
                 {/* <Divider /> */}
