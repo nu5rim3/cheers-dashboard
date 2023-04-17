@@ -22,10 +22,11 @@ interface FullmodalProps {
   open: boolean,
   isEdit: boolean,
   toggleModal: () => void,
+  onSubmit: () => void,
   children: React.ReactNode
 }
 
-const FullModal: React.FC<FullmodalProps> = ({ open, isEdit, toggleModal, children }) => {
+const FullModal: React.FC<FullmodalProps> = ({ open, isEdit, toggleModal, children, onSubmit }) => {
 
 
   return (
@@ -48,9 +49,9 @@ const FullModal: React.FC<FullmodalProps> = ({ open, isEdit, toggleModal, childr
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
               {isEdit ? 'Update Food' : 'Add New Food'}
             </Typography>
-            <Button variant='contained' autoFocus onClick={toggleModal}>
+            {/* <Button variant='contained' autoFocus onClick={onSubmit}>
               {isEdit ? 'Update' : 'Save'}
-            </Button>
+            </Button> */}
           </Toolbar>
         </AppBar>
         {children}

@@ -1,14 +1,11 @@
 import Button from '@mui/material/Button/Button';
 import Box from '@mui/material/Box/Box';
 import Grid from '@mui/material/Grid/Grid';
-import Paper from '@mui/material/Paper/Paper';
 import React, { useState } from 'react';
-import Typography from '@mui/material/Typography/Typography';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Header from '../../components/Header';
 import FullModal from '../../components/FullModal';
-import ItemAdd from './components/ItemAdd';
-import ItemEdit from './components/ItemEdit';
+import ItemAddForm from './components/forms/ItemAddForm';
+import ItemEditForm from './components/forms/ItemEditForm';
 import TableView from './components/TableView';
 
 const Foods = () => {
@@ -24,6 +21,13 @@ const Foods = () => {
     const onClickEdit = () => {
         setOpen(!open);
         setIsEdit(true);
+    }
+
+    const onSubmit = () => {
+        console.log('[FUNC] - onSubmit')
+        setOpen(!open);
+        setIsEdit(false);
+
     }
 
     return (
@@ -52,8 +56,9 @@ const Foods = () => {
                 open={open}
                 isEdit={isEdit}
                 toggleModal={onClickAdd}
+                onSubmit={onSubmit}
             >
-                {isEdit ? <ItemEdit /> : <ItemAdd />}
+                {isEdit ? <ItemEditForm /> : <ItemAddForm onSubmit={onSubmit} />}
             </FullModal>
         </>
     )
