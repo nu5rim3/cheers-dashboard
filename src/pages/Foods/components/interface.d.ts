@@ -1,6 +1,6 @@
 type TCategory = "VEG" | "NON" 
 type TAvailability = "BREAKFAST" | "LAUNCH" | "DINNER" | "ALL"
-type TType = "SNACK" | "MAIN" | "SOUP" | "DESSERT" | "RICE" | "NOODLES" | "SANDWITCH" | "BURGER" | "PASTA" | "PIZZA" | "WRAP" | "STARTERS" | "BITES" | "PLATTER"
+type TType = "SNACK" | "MAIN" | "SOUP" | "DESSERT" | "RICE" | "NOODLES" | "SANDWITCH" | "BURGER" | "PASTA" | "PIZZA" | "WRAP" | "STARTER" | "BITE" | "PLATTER" | "SALAD" | "BREAD"
 type TAdditions = "CHEESE" | "SPICY" | "NO_CHEESE" | "NO_SPICY" 
 
 interface IFood {
