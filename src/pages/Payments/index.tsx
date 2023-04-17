@@ -5,15 +5,13 @@ import React from 'react'
 const Payments = () => {
     return (
         <>
-            <Paper>
-                <Box pt={1} pb={1}>
-                    <ul>
-                        <li>CRUD Payments</li>
-                        <li>perview item</li>
-                        <li>availablity</li>
-                    </ul>
-                </Box>
-            </Paper>
+            <Box pt={1} pb={1}>
+                <ul>
+                    <li>CRUD Payments</li>
+                    <li>perview item</li>
+                    <li>availablity</li>
+                </ul>
+            </Box>
         </>
     )
 }

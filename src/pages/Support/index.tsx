@@ -5,15 +5,13 @@ import React from 'react'
 const Support = () => {
     return (
         <>
-            <Paper>
-                <Box pt={1} pb={1}>
-                    <ul>
-                        <li>CRUD Support</li>
-                        <li>perview item</li>
-                        <li>availablity</li>
-                    </ul>
-                </Box>
-            </Paper>
+            <Box pt={1} pb={1}>
+                <ul>
+                    <li>CRUD Support</li>
+                    <li>perview item</li>
+                    <li>availablity</li>
+                </ul>
+            </Box>
         </>
     )
 }

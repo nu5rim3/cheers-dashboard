@@ -4,21 +4,27 @@ import Grid from '@mui/material/Grid/Grid';
 import Paper from '@mui/material/Paper/Paper';
 import Typography from '@mui/material/Typography/Typography';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import React from 'react'
+import React, { useState } from 'react'
 import Header from '../../components/Header';
 
 const Beverages = () => {
+
+    const [open, setOpen] = useState<boolean>(false);
+
+    const onClickAdd = () => {
+        setOpen(!open);
+    }
+
+
     return (
         <>
-            <Paper>
-                <Box p={8}>
-                    <Header title={'Beverages List'} />
-                    <ul>
-                        <li>CRUD Beverages</li>
-                        <li>perview item</li>
-                    </ul>
-                </Box>
-            </Paper>
+            <Box>
+                <Header title={'Beverages List'} onClick={onClickAdd}/>
+                <ul>
+                    <li>CRUD Beverages</li>
+                    <li>perview item</li>
+                </ul>
+            </Box>
         </>
     )
 }

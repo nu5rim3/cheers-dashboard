@@ -8,7 +8,6 @@ const dashboard = () => {
   console.log('hello')
   return (
     <>
-      <Paper>
         <Box pt={1} pb={1}>
           <ul>
             <li>News</li>
@@ -27,7 +26,6 @@ const dashboard = () => {
           <Button color='primary' variant='text'>hello</Button>
           <Button color='secondary' variant='text'>Hello</Button>
         </Box>
-      </Paper>
     </>
   )
 }

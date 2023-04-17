@@ -205,7 +205,6 @@ const MiniDrawer: React.FC<MiniDrawerProps> = ({ children }) => {
                                 autoFocus={true}
                                 component={Link} to={item.path}
                                 selected={urlEntry === item.path}
-                                // selected={true}
                                 sx={{
                                     minHeight: 48,
                                     justifyContent: open ? 'initial' : 'center',

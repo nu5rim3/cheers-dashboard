@@ -1,12 +1,15 @@
 import React from 'react'
 import MiniDrawer from './Drawer'
 import { Outlet } from 'react-router-dom'
+import MainCard from '../../components/MainCard'
 
 const MainLayout = () => {
     return (
         <>
             <MiniDrawer>
-                <Outlet />
+                <MainCard>
+                    <Outlet />
+                </MainCard>
             </MiniDrawer>
         </>
     )
