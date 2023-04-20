@@ -9,6 +9,11 @@ import Button from '@mui/material/Button/Button';
 import Grid from '@mui/material/Grid/Grid';
 import useMediaQuery from '@mui/material/useMediaQuery/useMediaQuery';
 import GroupCheckBox from '../../../../components/GroupCheckBox';
+import Switch from '@mui/material/Switch';
+import FormGroup from '@mui/material/FormGroup/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel/FormControlLabel';
+import FormLabel from '@mui/material/FormLabel/FormLabel';
+import FormHelperText from '@mui/material/FormHelperText/FormHelperText';
 
 
 // TODO: add remaining feilds then remove the comment in the validation. validation error msg must be handle
@@ -20,7 +25,7 @@ const initialValues: IFood = {
   potions: [],
   serves: 1,
   category: [],
-  type: 'SNACK',
+  type: '',
   price: 0,
   discountAmount: 0,
   origin: [],
@@ -124,68 +129,132 @@ const ItemAddForm: React.FC<ItemAddFormProps> = ({ onSubmit }) => {
                   rows={4}
                 />
               </Grid>
-              <Grid item xs={6} sm={2} md={2} lg={1}>
-                <GroupCheckBox 
-                  data={["S", "M", "L"]}
-                  error={formik.touched.potions && Boolean(formik.errors.potions)}
-                  errorMessage={formik.touched.potions && formik.errors.potions}
-                  handleChange={formik.handleChange}
-                  required={true}
-                  label={'Potion'}
-                />
+
+              <Grid item xs={6} sm={3} md={2} lg={2}>
+                <Paper variant='outlined'>
+                  <Box p={2}>
+                    <GroupCheckBox
+                      name={'additions'}
+                      data={["All", "Cheese", "Spicy", "No Cheese", "No Spicy", "None"]}
+                      error={formik.touched.additions && Boolean(formik.errors.additions)}
+                      errorMessage={formik.touched.additions && formik.errors.additions}
+                      handleChange={formik.handleChange}
+                      required={true}
+                      label={'Additions'}
+                    />
+                  </Box>
+                </Paper>
               </Grid>
 
-              <Grid item xs={6} sm={2} md={2} lg={1}>
-                <GroupCheckBox 
-                  data={["Veg", "Non-veg", "Vegan"]}
-                  error={formik.touched.category && Boolean(formik.errors.category)}
-                  errorMessage={formik.touched.category && formik.errors.category}
-                  handleChange={formik.handleChange}
-                  required={true}
-                  label={'Category'}
-                />
+              <Grid item xs={6} sm={3} md={2} lg={2}>
+                <Paper variant='outlined'>
+                  <Box p={2}>
+                    <GroupCheckBox
+                      name={'potions'}
+                      data={["All", "S", "M", "L", "XL", "None"]}
+                      error={formik.touched.potions && Boolean(formik.errors.potions)}
+                      errorMessage={formik.touched.potions && formik.errors.potions}
+                      handleChange={formik.handleChange}
+                      required={true}
+                      label={'Potion'}
+                    />
+                  </Box>
+                </Paper>
               </Grid>
 
-              <Grid item xs={12} sm={8} md={8} lg={4}>
-                <GroupCheckBox 
-                  data={["Sri Lankan", "Indian", "Chinese", "Thai", "Japanese", "Mongolian", "Italian", "British", "Indonesian", "None"]}
-                  error={formik.touched.origin && Boolean(formik.errors.origin)}
-                  errorMessage={formik.touched.origin && formik.errors.origin}
-                  handleChange={formik.handleChange}
-                  required={true}
-                  label={'Origin'}
-                  row={true}
-                />
+
+              <Grid item xs={6} sm={3} md={2} lg={2}>
+                <Paper variant='outlined'>
+                  <Box p={2}>
+                    <GroupCheckBox
+                      name={'category'}
+                      data={["All", "Veg", "Non-veg", "Vegan", "None"]}
+                      error={formik.touched.category && Boolean(formik.errors.category)}
+                      errorMessage={formik.touched.category && formik.errors.category}
+                      handleChange={formik.handleChange}
+                      required={true}
+                      label={'Category'}
+                    />
+                  </Box>
+                </Paper>
               </Grid>
-              {mdMatch ?
-                <>
-                  <Grid item md={8} lg={10} />
-                  <Grid container item spacing={1} md={4} lg={2} display={'flex'} justifyContent={'space-between'} flexDirection={'row'}>
-                    <Grid item md={6} lg={6}>
-                      <Button
-                        color="primary"
-                        variant="outlined"
-                        fullWidth
-                        type="reset"
-                      >
-                        Clear
-                      </Button>
-                    </Grid>
-                    <Grid item md={6} lg={6}>
-                      <Button
-                        color="primary"
-                        variant="contained"
-                        fullWidth
-                        type="submit"
-                      >
-                        Submit
-                      </Button>
-                    </Grid>
-                  </Grid>
-                </>
-                :
-                <>
-                  <Grid item xs={12} sm={6}>
+
+              <Grid item xs={6} sm={3} md={2} lg={2}>
+                <Paper variant='outlined'>
+                  <Box p={2}>
+                    <GroupCheckBox
+                      name={'availability'}
+                      data={["All", "Breakfast", "Lanch", "Dinner", "None"]}
+                      error={formik.touched.availability && Boolean(formik.errors.availability)}
+                      errorMessage={formik.touched.availability && formik.errors.availability}
+                      handleChange={formik.handleChange}
+                      required={true}
+                      label={'Availability'}
+                    />
+                  </Box>
+                </Paper>
+              </Grid>
+
+
+
+              <Grid item xs={12} sm={6} md={4} lg={4}>
+                <Paper variant='outlined'>
+                  image uplading
+                </Paper>
+              </Grid>
+
+              <Grid item xs={12} sm={6} md={6} lg={4}>
+                <Paper variant='outlined'>
+                  <Box p={2}>
+                    <GroupCheckBox
+                      name={'type'}
+                      data={["Snack", "Main", "Soup", "Dessert", "Rice", "Noodles", "Burger", "Pasta", "Pizza", "Wrap", "Staters", "Bite", "Platter", "Salad", "Bread", "Sandwitch"]}
+                      error={formik.touched.type && Boolean(formik.errors.type)}
+                      errorMessage={formik.touched.type && formik.errors.type}
+                      handleChange={formik.handleChange}
+                      row={true}
+                      required={true}
+                      label={'Type'}
+                    />
+                  </Box>
+                </Paper>
+              </Grid>
+
+              <Grid item xs={12} sm={6} md={6} lg={4}>
+                <Paper variant='outlined'>
+                  <Box p={2}>
+                    <GroupCheckBox
+                      name={'origin'}
+                      data={["Sri Lankan", "Chinese", "Indian", "Mongolian", "Thai", "Japanese", "Italian", "Indonesian", "British", "None"]}
+                      error={formik.touched.origin && Boolean(formik.errors.origin)}
+                      errorMessage={formik.touched.origin && formik.errors.origin}
+                      handleChange={formik.handleChange}
+                      required={true}
+                      label={'Origin'}
+                      row={true}
+                    />
+                  </Box>
+                </Paper>
+              </Grid>
+
+              <Grid item xs={12} sm={4} md={4} lg={4}>
+                <FormGroup row>
+                  <FormControlLabel control={<Switch name={'isSpecial'} onChange={formik.handleChange} />} label="Special" />
+                  <FormHelperText error={formik.touched.isSpecial && Boolean(formik.errors.isSpecial)}>{formik.touched.isSpecial && formik.errors.isSpecial}</FormHelperText>
+                  
+                  <FormControlLabel control={<Switch name={'isActive'} onChange={formik.handleChange} />} label="Active" />
+                  <FormHelperText error={formik.touched.isActive && Boolean(formik.errors.isActive)}>{formik.touched.isActive && formik.errors.isActive}</FormHelperText>
+                </FormGroup>
+              </Grid>
+
+
+            </Grid>
+
+            {mdMatch ?
+              <Grid container>
+                <Grid item md={8} lg={10} />
+                <Grid container item spacing={1} md={4} lg={2} display={'flex'} justifyContent={'space-between'} flexDirection={'row'}>
+                  <Grid item md={6} lg={6}>
                     <Button
                       color="primary"
                       variant="outlined"
@@ -195,8 +264,7 @@ const ItemAddForm: React.FC<ItemAddFormProps> = ({ onSubmit }) => {
                       Clear
                     </Button>
                   </Grid>
-
-                  <Grid item xs={12} sm={6}>
+                  <Grid item md={6} lg={6}>
                     <Button
                       color="primary"
                       variant="contained"
@@ -206,8 +274,33 @@ const ItemAddForm: React.FC<ItemAddFormProps> = ({ onSubmit }) => {
                       Submit
                     </Button>
                   </Grid>
-                </>}
-            </Grid>
+                </Grid>
+              </Grid>
+              :
+              <Grid container spacing={1} mt={1}>
+                <Grid item xs={12} sm={6}>
+                  <Button
+                    color="primary"
+                    variant="outlined"
+                    fullWidth
+                    type="reset"
+                  >
+                    Clear
+                  </Button>
+                </Grid>
+
+                <Grid item xs={12} sm={6}>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    fullWidth
+                    type="submit"
+                  >
+                    Submit
+                  </Button>
+                </Grid>
+              </Grid>}
+
           </form>
         </Box>
       </Paper>

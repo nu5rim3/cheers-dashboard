@@ -14,10 +14,11 @@ interface GroupCheckBoxProps {
     data: any[],
     handleChange: (e: React.ChangeEvent<any>) => void,
     label: string,
+    name: string,
     row?: boolean
 }
 
-const GroupCheckBox: React.FC<GroupCheckBoxProps> = ({ required, error, errorMessage, data, label, row, handleChange }) => {
+const GroupCheckBox: React.FC<GroupCheckBoxProps> = ({ required, error, errorMessage, data, label, row, name, handleChange }) => {
     return (
         <FormControl
             required={required}
@@ -31,7 +32,7 @@ const GroupCheckBox: React.FC<GroupCheckBoxProps> = ({ required, error, errorMes
                         key={item}
                         control={
                             <Checkbox
-                                name="category"
+                                name={name}
                                 value={item}
                                 onChange={handleChange}
                             />

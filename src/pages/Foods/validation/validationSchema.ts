@@ -32,14 +32,14 @@ const validationsForm = yup.object().shape({
     potions: yup.array().min(1).required("Required"),
     serves: yup.number().required("Required"),
     category: yup.array().min(1).required("Required"),
-    // type: yup.string().required("Required"),
+    type: yup.string().required("Required"),
     price: yup.number().required("Required"),
     discountAmount: yup.number().required("Required"),
     origin: yup.array().min(1).required("Required"),
-    // availability: yup.string().required("Required"),
-    // additions: yup.string().required("Required"),
-    // isSpecial: yup.boolean(),
-    // isActive: yup.boolean().required("Required")
+    availability: yup.array().min(1).required("Required"),
+    additions: yup.array().min(1).required("Required"),
+    isSpecial: yup.boolean(),
+    isActive: yup.boolean().required("Required")
 })
 
 export default validationsForm;
