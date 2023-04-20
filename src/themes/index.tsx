@@ -22,6 +22,15 @@ const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
       secondary: {
         main: paletteColor.green[600]
       },
+      error: {
+        main: paletteColor.red[400]
+      },
+      warning: {
+        main: paletteColor.red[900]
+      },
+      success: {
+        main: paletteColor.green[400],
+      },
       text: {
         primary: paletteColor.grey[200],
         secondary: paletteColor.grey[800],
@@ -36,6 +45,7 @@ const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         default: paletteColor.grey[900]
       }
     },
+    
     breakpoints: {
       values: {
         xs: 0,

@@ -17,7 +17,6 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-// import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { useDispatch, useSelector } from 'react-redux';
 import Switch from '@mui/material/Switch/Switch';
@@ -25,8 +24,7 @@ import Switch from '@mui/material/Switch/Switch';
 import routePath from '../../../config';
 
 import { toggleTheme } from '../../../store/reducers/themeSlice';
-import SvgIcon from '@mui/icons-material/Menu';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Badge from '@mui/material/Badge/Badge';
 import { Tooltip } from '@mui/material';
 
@@ -197,9 +195,8 @@ const MiniDrawer: React.FC<MiniDrawerProps> = ({ children }) => {
                 <Divider />
                 <List>
                     {routePath.map((item: any) => (
-                        <Tooltip title={item.label} placement="right">
+                        <Tooltip title={item.label} placement="right" key={item.label}>
                             <ListItemButton
-                                key={item.label}
                                 disableGutters={true}
                                 dense={true}
                                 autoFocus={true}

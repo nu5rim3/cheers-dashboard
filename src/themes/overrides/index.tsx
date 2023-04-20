@@ -18,6 +18,8 @@ import TableCell from './TableCell';
 import Tabs from './Tabs';
 import Typography from './Typography';
 import ListItemButton from './ListItemButton';
+import FormHelperText from './FormHelperText';
+import FormLabel from './FormLabel';
 
 // ==============================|| OVERRIDES - MAIN ||============================== //
 
@@ -28,6 +30,8 @@ export default function ComponentsOverrides(theme: any) {
         CardContent(),
         Checkbox(theme),
         Chip(theme),
+        FormHelperText(theme),
+        FormLabel(theme),
         IconButton(theme),
         InputLabel(theme),
         LinearProgress(),

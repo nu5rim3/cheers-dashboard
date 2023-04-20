@@ -38,7 +38,7 @@ const Foods = () => {
                     </ul> */}
 
             <Box>
-                <Grid spacing={3}>
+                <Grid>
                     <Grid item xs={12}>
                         <Header title={'Foods List'} onClick={onClickAdd} />
                     </Grid>
