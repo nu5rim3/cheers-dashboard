@@ -1,5 +1,5 @@
 import { useFormik } from 'formik';
-import React from 'react'
+import React, { useState } from 'react'
 import validationSchema from '../../validation/validationSchema';
 import TextField from '@mui/material/TextField/TextField';
 import Box from '@mui/material/Box/Box';
@@ -14,25 +14,22 @@ import FormGroup from '@mui/material/FormGroup/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel/FormLabel';
 import FormHelperText from '@mui/material/FormHelperText/FormHelperText';
-import FormControl from '@mui/material/FormControl/FormControl';
-import Checkbox from '@mui/material/Checkbox/Checkbox';
-
 
 // TODO: add remaining feilds then remove the comment in the validation. validation error msg must be handle
 
 const initialValues: IFood = {
-  name: '',
-  description: '',
-  image: '',
-  potions: [],
+  name: '2',
+  description: '2',
+  image: null,
+  potions: ['All'],
   serves: 1,
-  category: [],
-  type: [],
+  category: ['All'],
+  type: ['Snack'],
   price: 0,
   discountAmount: 0,
-  origin: [],
-  availability: [],
-  additions: [],
+  origin: ['Sri Lankan'],
+  availability: ['All'],
+  additions: ['All'],
   isSpecial: false,
   isActive: false
 }
@@ -45,6 +42,7 @@ const ItemAddForm: React.FC<ItemAddFormProps> = ({ onSubmit }) => {
 
   const theme: any = useTheme();
   const mdMatch = useMediaQuery(theme.breakpoints.up("md"));
+  const [imageUrl, setImageUrl] = useState<string>('')
 
   const formik = useFormik({
     initialValues: initialValues,
@@ -57,6 +55,7 @@ const ItemAddForm: React.FC<ItemAddFormProps> = ({ onSubmit }) => {
     }
   });
 
+  // uploading function
   const uploadItem = (value: IFood) => {
     console.log('[FUNC] - uploadItem - ', value)
     // onSubmit()
@@ -207,9 +206,34 @@ const ItemAddForm: React.FC<ItemAddFormProps> = ({ onSubmit }) => {
 
 
               <Grid item xs={12} sm={6} md={4} lg={4}>
-                <Paper variant='outlined'>
-                  image uplading
-                </Paper>
+                {imageUrl &&
+                  <Paper variant='outlined'>
+                    <Box p={2}>
+                      <FormLabel component="legend">Preview</FormLabel>
+                      <Box component={'img'} src={imageUrl} maxWidth={250} pt={1}>
+
+                      </Box>
+                    </Box>
+                  </Paper>}
+                <Box pt={1}>
+                  <Button
+                    variant="contained"
+                    component="label"
+                  >
+                    Upload Image
+                    <input
+                      hidden
+                      type='file'
+                      name='image'
+                      accept='image/*'
+                      onChange={(e: any) => {
+                        setImageUrl(e.target.files[0] ? URL.createObjectURL(e.target.files[0]) : '');
+                        formik.setFieldValue('image', e.target.files[0]);
+                      }}
+                    />
+                  </Button>
+                  <FormHelperText error={formik.touched.image && Boolean(formik.errors.image)}>{formik.touched.image && formik.errors.image}</FormHelperText>
+                </Box>
               </Grid>
 
               <Grid item xs={12} sm={6} md={6} lg={4}>

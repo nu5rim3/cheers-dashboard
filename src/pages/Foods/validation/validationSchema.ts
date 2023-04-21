@@ -11,24 +11,24 @@ const SUPPORTED_FORMATS = [
 const validationsForm = yup.object().shape({
     name: yup.string().required("Required"),
     description: yup.string().required("Required"),
-    // image: yup
-    // .mixed()
-    // .required("A file is required")
+    image: yup
+    .mixed()
+    .required("A file is required")
     // .test(
     //     "required", 
     //     "Please select a file", 
     //     (value: any) => value.size === 0
     // )
-    // .test(
-    //   "fileSize",
-    //   "File too large",
-    //   (value: any)=> value && value.size <= FILE_SIZE
-    // )
-    // .test(
-    //   "fileFormat",
-    //   "Unsupported Format",
-    //   (value: any) => value && SUPPORTED_FORMATS.includes(value.type)
-    // ),
+    .test(
+      "fileSize",
+      "File too large",
+      (value: any)=> value && value.size <= FILE_SIZE
+    )
+    .test(
+      "fileFormat",
+      "Unsupported Format",
+      (value: any) => value && SUPPORTED_FORMATS.includes(value.type)
+    ),
     potions: yup.array().min(1).required("Required"),
     serves: yup.number().required("Required"),
     category: yup.array().min(1).required("Required"),

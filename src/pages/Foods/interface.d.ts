@@ -5,12 +5,12 @@
 // type TAdditions = "Cheese" | "Spicy" | "No Cheese" | "No Spicy" 
 // // type TOrigin = "SRILANKAN" | "INDIAN" | "CHINEESE" | "MONGOLIAN" | "ITALIAN"| "THAI" | "JAPANESE" | "INDONESIAN"
 type TOrigin = "Sri Lankan" |  "Indian" | "Chinese" | "Thai" | "Japanese" | "Mongolian" | "Italian" | "British" | "Indonesian" | "None"
-type TPotion = "L" | "M" | "S" 
+type TPotion = "L" | "M" | "S" | "XL" | "All" | "None"
 
 interface IFood {
     name: string,
     description: string,
-    image: File | string,
+    image: File | null,
     potions: TPotion[],
     serves: number | undefined,
     category: TCategory[],
