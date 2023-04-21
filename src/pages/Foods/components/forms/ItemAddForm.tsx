@@ -18,18 +18,18 @@ import FormHelperText from '@mui/material/FormHelperText/FormHelperText';
 // TODO: add remaining feilds then remove the comment in the validation. validation error msg must be handle
 
 const initialValues: IFood = {
-  name: '2',
-  description: '2',
+  name: '',
+  description: '',
   image: null,
-  potions: ['All'],
+  potions: [],
   serves: 1,
-  category: ['All'],
-  type: ['Snack'],
+  category: [],
+  type: [],
   price: 0,
   discountAmount: 0,
-  origin: ['Sri Lankan'],
-  availability: ['All'],
-  additions: ['All'],
+  origin: [],
+  availability: [],
+  additions: [],
   isSpecial: false,
   isActive: false
 }
@@ -59,6 +59,12 @@ const ItemAddForm: React.FC<ItemAddFormProps> = ({ onSubmit }) => {
   const uploadItem = (value: IFood) => {
     console.log('[FUNC] - uploadItem - ', value)
     // onSubmit()
+  }
+
+  // remove image url function
+  const onRemove = () => {
+    setImageUrl('');
+    formik.setFieldValue('image', null);
   }
 
   return (
@@ -216,22 +222,27 @@ const ItemAddForm: React.FC<ItemAddFormProps> = ({ onSubmit }) => {
                     </Box>
                   </Paper>}
                 <Box pt={1}>
-                  <Button
-                    variant="contained"
-                    component="label"
-                  >
-                    Upload Image
-                    <input
-                      hidden
-                      type='file'
-                      name='image'
-                      accept='image/*'
-                      onChange={(e: any) => {
-                        setImageUrl(e.target.files[0] ? URL.createObjectURL(e.target.files[0]) : '');
-                        formik.setFieldValue('image', e.target.files[0]);
-                      }}
-                    />
-                  </Button>
+
+                  {imageUrl ?
+                    <Button variant='outlined' onClick={onRemove}>Remove</Button>
+                    :
+                    <Button
+                      variant="contained"
+                      component="label"
+                    >
+                      Upload Image
+                      <input
+                        hidden
+                        type='file'
+                        name='image'
+                        accept='image/*'
+                        onChange={(e: any) => {
+                          setImageUrl(e.target.files[0] ? URL.createObjectURL(e.target.files[0]) : '');
+                          formik.setFieldValue('image', e.target.files[0]);
+                        }}
+                      />
+                    </Button>
+                  }
                   <FormHelperText error={formik.touched.image && Boolean(formik.errors.image)}>{formik.touched.image && formik.errors.image}</FormHelperText>
                 </Box>
               </Grid>
