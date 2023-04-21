@@ -1,4 +1,4 @@
-import Colors from "./theme";
+import Colors from "./colors";
 import { ThemeProvider as MUIThemeProvider, Theme, createTheme } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import componentsOverride from './overrides';
