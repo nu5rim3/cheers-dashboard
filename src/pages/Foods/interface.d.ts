@@ -14,7 +14,7 @@ interface IFood {
     potions: TPotion[],
     serves: number | undefined,
     category: TCategory[],
-    type: string,
+    type: string[],
     price: number | undefined,
     discountAmount: number | undefined,
     origin: TOrigin[],

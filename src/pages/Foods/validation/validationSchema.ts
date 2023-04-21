@@ -32,7 +32,7 @@ const validationsForm = yup.object().shape({
     potions: yup.array().min(1).required("Required"),
     serves: yup.number().required("Required"),
     category: yup.array().min(1).required("Required"),
-    type: yup.string().required("Required"),
+    type: yup.array().min(1).max(1, "Select only one type").required("Required"),
     price: yup.number().required("Required"),
     discountAmount: yup.number().required("Required"),
     origin: yup.array().min(1).required("Required"),

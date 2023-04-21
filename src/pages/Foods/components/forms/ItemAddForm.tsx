@@ -14,6 +14,8 @@ import FormGroup from '@mui/material/FormGroup/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel/FormLabel';
 import FormHelperText from '@mui/material/FormHelperText/FormHelperText';
+import FormControl from '@mui/material/FormControl/FormControl';
+import Checkbox from '@mui/material/Checkbox/Checkbox';
 
 
 // TODO: add remaining feilds then remove the comment in the validation. validation error msg must be handle
@@ -25,7 +27,7 @@ const initialValues: IFood = {
   potions: [],
   serves: 1,
   category: [],
-  type: '',
+  type: [],
   price: 0,
   discountAmount: 0,
   origin: [],
@@ -50,11 +52,14 @@ const ItemAddForm: React.FC<ItemAddFormProps> = ({ onSubmit }) => {
     onSubmit: (values) => {
       uploadItem(values)
     },
+    onReset: (values) => {
+      console.log(values)
+    }
   });
 
   const uploadItem = (value: IFood) => {
     console.log('[FUNC] - uploadItem - ', value)
-    onSubmit()
+    // onSubmit()
   }
 
   return (
@@ -141,6 +146,7 @@ const ItemAddForm: React.FC<ItemAddFormProps> = ({ onSubmit }) => {
                       handleChange={formik.handleChange}
                       required={true}
                       label={'Additions'}
+                      values={formik.values.additions}
                     />
                   </Box>
                 </Paper>
@@ -157,6 +163,7 @@ const ItemAddForm: React.FC<ItemAddFormProps> = ({ onSubmit }) => {
                       handleChange={formik.handleChange}
                       required={true}
                       label={'Potion'}
+                      values={formik.values.potions}
                     />
                   </Box>
                 </Paper>
@@ -174,6 +181,7 @@ const ItemAddForm: React.FC<ItemAddFormProps> = ({ onSubmit }) => {
                       handleChange={formik.handleChange}
                       required={true}
                       label={'Category'}
+                      values={formik.values.category}
                     />
                   </Box>
                 </Paper>
@@ -190,6 +198,7 @@ const ItemAddForm: React.FC<ItemAddFormProps> = ({ onSubmit }) => {
                       handleChange={formik.handleChange}
                       required={true}
                       label={'Availability'}
+                      values={formik.values.availability}
                     />
                   </Box>
                 </Paper>
@@ -215,6 +224,7 @@ const ItemAddForm: React.FC<ItemAddFormProps> = ({ onSubmit }) => {
                       row={true}
                       required={true}
                       label={'Type'}
+                      values={formik.values.type}
                     />
                   </Box>
                 </Paper>
@@ -232,6 +242,7 @@ const ItemAddForm: React.FC<ItemAddFormProps> = ({ onSubmit }) => {
                       required={true}
                       label={'Origin'}
                       row={true}
+                      values={formik.values.origin}
                     />
                   </Box>
                 </Paper>
@@ -241,12 +252,11 @@ const ItemAddForm: React.FC<ItemAddFormProps> = ({ onSubmit }) => {
                 <FormGroup row>
                   <FormControlLabel control={<Switch name={'isSpecial'} onChange={formik.handleChange} />} label="Special" />
                   <FormHelperText error={formik.touched.isSpecial && Boolean(formik.errors.isSpecial)}>{formik.touched.isSpecial && formik.errors.isSpecial}</FormHelperText>
-                  
+
                   <FormControlLabel control={<Switch name={'isActive'} onChange={formik.handleChange} />} label="Active" />
                   <FormHelperText error={formik.touched.isActive && Boolean(formik.errors.isActive)}>{formik.touched.isActive && formik.errors.isActive}</FormHelperText>
                 </FormGroup>
               </Grid>
-
 
             </Grid>
 

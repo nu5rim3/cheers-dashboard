@@ -2,22 +2,16 @@
 
 export default function FormHelperText(theme: any) {
     return {
-        MuiInputLabel: {
+        MuiFormHelperText: {
             styleOverrides: {
                 root: {
                     color: theme.palette.grey[600]
                 },
-                outlined: {
+                error: {
                     lineHeight: '0.8em',
-                    '&.MuiInputLabel-sizeSmall': {
-                        lineHeight: '1em'
+                    '&.Mui-error': {
+                        color: theme.palette.error
                     },
-                    '&.MuiInputLabel-shrink': {
-                        background: theme.palette.background.paper,
-                        padding: '0 8px',
-                        marginLeft: -6,
-                        lineHeight: '1.4375em'
-                    }
                 }
             }
         }
