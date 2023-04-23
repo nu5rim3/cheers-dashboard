@@ -14,6 +14,7 @@ import FormGroup from '@mui/material/FormGroup/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel/FormLabel';
 import FormHelperText from '@mui/material/FormHelperText/FormHelperText';
+import GroupRadioButton from '../../../../components/GroupRadioButton';
 
 // TODO: add remaining feilds then remove the comment in the validation. validation error msg must be handle
 
@@ -24,10 +25,10 @@ const initialValues: IFood = {
   potions: [],
   serves: 1,
   category: [],
-  type: [],
+  type: '',
   price: 0,
   discountAmount: 0,
-  origin: [],
+  origin: '',
   availability: [],
   additions: [],
   isSpecial: false,
@@ -67,11 +68,17 @@ const ItemAddForm: React.FC<ItemAddFormProps> = ({ onSubmit }) => {
     formik.setFieldValue('image', null);
   }
 
+  // on reset form
+  const onRest = () => {
+    formik.resetForm();
+    onRemove();
+  }
+
   return (
     <Box p={theme.spacing(2)}>
       <Paper elevation={2}>
         <Box p={theme.spacing(3, 4)}>
-          <form onSubmit={formik.handleSubmit} onReset={formik.handleReset}>
+          <form onSubmit={formik.handleSubmit} onReset={onRest}>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6} md={6}>
                 <TextField
@@ -250,7 +257,7 @@ const ItemAddForm: React.FC<ItemAddFormProps> = ({ onSubmit }) => {
               <Grid item xs={12} sm={6} md={6} lg={4}>
                 <Paper variant='outlined'>
                   <Box p={2}>
-                    <GroupCheckBox
+                    <GroupRadioButton
                       name={'type'}
                       data={["Snack", "Main", "Soup", "Dessert", "Rice", "Noodles", "Burger", "Pasta", "Pizza", "Wrap", "Staters", "Bite", "Platter", "Salad", "Bread", "Sandwitch"]}
                       error={formik.touched.type && Boolean(formik.errors.type)}
@@ -259,7 +266,7 @@ const ItemAddForm: React.FC<ItemAddFormProps> = ({ onSubmit }) => {
                       row={true}
                       required={true}
                       label={'Type'}
-                      values={formik.values.type}
+                      value={formik.values.type}
                     />
                   </Box>
                 </Paper>
@@ -268,7 +275,7 @@ const ItemAddForm: React.FC<ItemAddFormProps> = ({ onSubmit }) => {
               <Grid item xs={12} sm={6} md={6} lg={4}>
                 <Paper variant='outlined'>
                   <Box p={2}>
-                    <GroupCheckBox
+                    <GroupRadioButton
                       name={'origin'}
                       data={["Sri Lankan", "Chinese", "Indian", "Mongolian", "Thai", "Japanese", "Italian", "Indonesian", "British", "None"]}
                       error={formik.touched.origin && Boolean(formik.errors.origin)}
@@ -277,7 +284,7 @@ const ItemAddForm: React.FC<ItemAddFormProps> = ({ onSubmit }) => {
                       required={true}
                       label={'Origin'}
                       row={true}
-                      values={formik.values.origin}
+                      value={formik.values.origin}
                     />
                   </Box>
                 </Paper>
@@ -285,10 +292,10 @@ const ItemAddForm: React.FC<ItemAddFormProps> = ({ onSubmit }) => {
 
               <Grid item xs={12} sm={4} md={4} lg={4}>
                 <FormGroup row>
-                  <FormControlLabel control={<Switch name={'isSpecial'} onChange={formik.handleChange} />} label="Special" />
+                  <FormControlLabel control={<Switch name={'isSpecial'} value={formik.values.isSpecial} onChange={formik.handleChange} />} label="Special" />
                   <FormHelperText error={formik.touched.isSpecial && Boolean(formik.errors.isSpecial)}>{formik.touched.isSpecial && formik.errors.isSpecial}</FormHelperText>
 
-                  <FormControlLabel control={<Switch name={'isActive'} onChange={formik.handleChange} />} label="Active" />
+                  <FormControlLabel control={<Switch name={'isActive'} value={formik.values.isActive} onChange={formik.handleChange} />} label="Active" />
                   <FormHelperText error={formik.touched.isActive && Boolean(formik.errors.isActive)}>{formik.touched.isActive && formik.errors.isActive}</FormHelperText>
                 </FormGroup>
               </Grid>
