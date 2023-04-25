@@ -37,8 +37,8 @@ const GroupRadioButton: React.FC<GroupRadioButtonProps> = ({ required, error, er
                         control={
                             <Radio
                                 name={name}
-                                // value={item}
-                                checked={value ===(item)}
+                                value={item}
+                                checked={value === item}
                                 onChange={handleChange}
                             />}
                         label={item} />

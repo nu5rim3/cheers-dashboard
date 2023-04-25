@@ -35,6 +35,22 @@ const initialValues: IFood = {
   isActive: false
 }
 
+// const testValues: IFood = {
+//   name: 'sample',
+//   description: 'sample',
+//   image: null,
+//   potions: ['All'],
+//   serves: 1,
+//   category: ['All'],
+//   type: 'Snack',
+//   price: 100,
+//   discountAmount: 100,
+//   origin: 'Thai',
+//   availability: ['All'],
+//   additions: ['All'],
+//   isSpecial: true,
+//   isActive: false
+// }
 interface ItemAddFormProps {
   onSubmit: () => void
 }
@@ -292,10 +308,10 @@ const ItemAddForm: React.FC<ItemAddFormProps> = ({ onSubmit }) => {
 
               <Grid item xs={12} sm={4} md={4} lg={4}>
                 <FormGroup row>
-                  <FormControlLabel control={<Switch name={'isSpecial'} value={formik.values.isSpecial} onChange={formik.handleChange} />} label="Special" />
+                  <FormControlLabel control={<Switch name={'isSpecial'} checked={formik.values.isSpecial} onChange={formik.handleChange} />} label="Special" />
                   <FormHelperText error={formik.touched.isSpecial && Boolean(formik.errors.isSpecial)}>{formik.touched.isSpecial && formik.errors.isSpecial}</FormHelperText>
 
-                  <FormControlLabel control={<Switch name={'isActive'} value={formik.values.isActive} onChange={formik.handleChange} />} label="Active" />
+                  <FormControlLabel control={<Switch name={'isActive'} checked={formik.values.isActive} onChange={formik.handleChange} />} label="Active" />
                   <FormHelperText error={formik.touched.isActive && Boolean(formik.errors.isActive)}>{formik.touched.isActive && formik.errors.isActive}</FormHelperText>
                 </FormGroup>
               </Grid>
