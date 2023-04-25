@@ -20,7 +20,7 @@ interface GroupCheckBoxProps {
 }
 
 const GroupCheckBox: React.FC<GroupCheckBoxProps> = ({ required, error, errorMessage, data, label, row, name, values, handleChange }) => {
-    
+
     return (
         <FormControl
             required={required}
@@ -31,19 +31,35 @@ const GroupCheckBox: React.FC<GroupCheckBoxProps> = ({ required, error, errorMes
             <FormLabel component="legend" error={error}>{label}</FormLabel>
             <FormGroup row={row}>
                 {data.map((item) => (
-                    <FormControlLabel
-                        key={item}
-                        control={
-                            <Checkbox
-                                name={name}
-                                value={item}
-                                checked={values.includes(item)}
-                                onChange={handleChange}
+                    item === 'All' ?
+                        <FormControlLabel
+                            key={item}
+                            control={
+                                <Checkbox
+                                    name={name}
+                                    value={'All'}
+                                    checked={values.includes('All')}
+                                    onChange={handleChange}
 
-                            />
-                        }
-                        label={item}
-                    />
+                                />
+                            }
+                            label={'All'}
+                        />
+                        :
+                        <FormControlLabel
+                            key={item}
+                            control={
+                                <Checkbox
+                                    name={name}
+                                    value={item}
+                                    disabled={values.includes('All')}
+                                    checked={values.includes(item) || values.includes('All')}
+                                    onChange={handleChange}
+
+                                />
+                            }
+                            label={item}
+                        />
                 ))}
             </FormGroup>
             <FormHelperText>{errorMessage}</FormHelperText>

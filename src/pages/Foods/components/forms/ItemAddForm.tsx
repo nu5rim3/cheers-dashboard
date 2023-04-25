@@ -35,22 +35,22 @@ const initialValues: IFood = {
   isActive: false
 }
 
-// const testValues: IFood = {
-//   name: 'sample',
-//   description: 'sample',
-//   image: null,
-//   potions: ['All'],
-//   serves: 1,
-//   category: ['All'],
-//   type: 'Snack',
-//   price: 100,
-//   discountAmount: 100,
-//   origin: 'Thai',
-//   availability: ['All'],
-//   additions: ['All'],
-//   isSpecial: true,
-//   isActive: false
-// }
+const testValues: IFood = {
+  name: 'sample',
+  description: 'sample',
+  image: null,
+  potions: ['All'],
+  serves: 1,
+  category: ['All'],
+  type: 'Snack',
+  price: 100,
+  discountAmount: 100,
+  origin: 'Thai',
+  availability: ['All'],
+  additions: ['All'],
+  isSpecial: true,
+  isActive: false
+}
 interface ItemAddFormProps {
   onSubmit: () => void
 }
