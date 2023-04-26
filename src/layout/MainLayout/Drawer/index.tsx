@@ -199,7 +199,7 @@ const MiniDrawer: React.FC<MiniDrawerProps> = ({ children }) => {
                             <ListItemButton
                                 disableGutters={true}
                                 dense={true}
-                                autoFocus={true}
+                                // autoFocus={true}
                                 component={Link} to={item.path}
                                 selected={urlEntry === item.path}
                                 sx={{
