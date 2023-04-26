@@ -3,6 +3,7 @@ import { lazy } from 'react';
 // project import
 import Loadable from '../components/Loadable';
 import MainLayout from '../layout/MainLayout';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 
 // render - pages
@@ -25,39 +26,75 @@ const MainRoutes = {
     children: [
         {
             path: '/',
-            element: <Dashboard />
+            element: (
+                <ErrorBoundary>
+                    <Dashboard />
+                </ErrorBoundary>
+            )
         },
         {
             path: 'foods',
-            element: <Foods />
+            element: (
+                <ErrorBoundary>
+                    <Foods />
+                </ErrorBoundary>
+            )
         },
         {
             path: 'beverages',
-            element: <Beverages />
+            element: (
+                <ErrorBoundary>
+                    <Beverages />
+                </ErrorBoundary>
+            )
         },
         {
             path: 'tables',
-            element: <Tables />
+            element: (
+                <ErrorBoundary>
+                    <Tables />
+                </ErrorBoundary>
+            )
         },
         {
             path: 'customers',
-            element: <Customers />
+            element: (
+                <ErrorBoundary>
+                    <Customers />
+                </ErrorBoundary>
+            )
         },
         {
             path: 'payments',
-            element: <Payments />
+            element: (
+                <ErrorBoundary>
+                    <Payments />
+                </ErrorBoundary>
+            )
         },
         {
             path: 'support',
-            element: <Support />
+            element: (
+                <ErrorBoundary>
+                    <Support />
+                </ErrorBoundary>
+            )
         },
         {
             path: 'reviews',
-            element: <Reviews />
+            element: (
+                <ErrorBoundary>
+                    <Reviews />
+                </ErrorBoundary>
+            )
         },
         {
             path: 'profile',
-            element: <Profile />
+            element: (
+                <ErrorBoundary>
+                    <Profile />
+                </ErrorBoundary>
+            )
         },
         // {
         //     path: 'dashboard',

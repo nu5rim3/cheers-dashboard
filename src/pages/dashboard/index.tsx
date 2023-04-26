@@ -5,7 +5,7 @@ import Paper from '@mui/material/Paper/Paper';
 import React from 'react';
 
 const dashboard = () => {
-  console.log('hello')
+
   return (
     <>
         <Box pt={1} pb={1}>
