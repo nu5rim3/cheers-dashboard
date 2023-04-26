@@ -39,19 +39,21 @@ const FullModal: React.FC<FullmodalProps> = ({ open, isEdit, toggleModal, childr
       >
         <AppBar sx={{ position: 'relative' }}>
           <Toolbar>
-            <IconButton
-              edge="start"
-              onClick={toggleModal}
-              aria-label="close"
-            >
-              <CloseIcon />
-            </IconButton>
+            
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
               {isEdit ? 'Update Food' : 'Add New Food'}
             </Typography>
             {/* <Button variant='contained' autoFocus onClick={onSubmit}>
               {isEdit ? 'Update' : 'Save'}
             </Button> */}
+            
+            <IconButton
+              edge="end"
+              onClick={toggleModal}
+              aria-label="close"
+            >
+              <CloseIcon />
+            </IconButton>
           </Toolbar>
         </AppBar>
         {children}
