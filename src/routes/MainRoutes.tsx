@@ -3,27 +3,19 @@ import { lazy } from 'react';
 // project import
 import Loadable from '../components/Loadable';
 import MainLayout from '../layout/MainLayout';
-import Dashboard from '../pages/dashboard';
-import Foods from '../pages/Foods';
-import Beverages from '../pages/Beverages';
-import Tables from '../pages/Tables';
-import Profile from '../pages/Profile';
-import Payments from '../pages/Payments';
-import Reviews from '../pages/Review';
-import Customers from '../pages/Customers';
-import Support from '../pages/Support';
 
-// render - dashboard
-// const Dashboard = Loadable(lazy(() => import('pages/dashboard')));
 
-// render - sample page
-// const SamplePage = Loadable(lazy(() => import('pages/extra-pages/SamplePage')));
+// render - pages
+const Dashboard = Loadable(lazy(() => import('../pages/dashboard')));
+const Foods = Loadable(lazy(() => import('../pages/Foods')));
+const Beverages = Loadable(lazy(() => import('../pages/Beverages')));
+const Tables = Loadable(lazy(() => import('../pages/Tables')));
+const Profile = Loadable(lazy(() => import('../pages/Profile')));
+const Payments = Loadable(lazy(() => import('../pages/Payments')));
+const Reviews = Loadable(lazy(() => import('../pages/Reviews')));
+const Customers = Loadable(lazy(() => import('../pages/Customers')));
+const Support = Loadable(lazy(() => import('../pages/Support')));
 
-// render - utilities
-// const Typography = Loadable(lazy(() => import('pages/components-overview/Typography')));
-// const Color = Loadable(lazy(() => import('pages/components-overview/Color')));
-// const Shadow = Loadable(lazy(() => import('pages/components-overview/Shadow')));
-// const AntIcons = Loadable(lazy(() => import('pages/components-overview/AntIcons')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -76,22 +68,6 @@ const MainRoutes = {
         //         }
         //     ]
         // },
-        // {
-        //     path: 'sample-page',
-        //     element: <SamplePage />
-        // },
-        // {
-        //     path: 'shadow',
-        //     element: <Shadow />
-        // },
-        // {
-        //     path: 'typography',
-        //     element: <Typography />
-        // },
-        // {
-        //     path: 'icons/ant',
-        //     element: <AntIcons />
-        // }
     ]
 };
 

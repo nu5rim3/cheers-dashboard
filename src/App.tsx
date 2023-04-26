@@ -1,13 +1,17 @@
 import ThemeProvider from './themes';
-import ThemeRoutes from './routes';
+import Routes from './routes';
 import CssBaseline from '@mui/material/CssBaseline/CssBaseline';
+import { Suspense } from 'react';
+import Loader from './components/Loader';
 
 function App() {
 
   return (
     <ThemeProvider>
       <CssBaseline />
-      <ThemeRoutes />
+      <Suspense fallback={<Loader />}>
+        <Routes />
+      </Suspense>
     </ThemeProvider>
   );
 }

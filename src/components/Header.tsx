@@ -2,7 +2,7 @@ import Button from '@mui/material/Button/Button';
 import Grid from '@mui/material/Grid/Grid';
 import Typography from '@mui/material/Typography/Typography';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import React from 'react';
+import React, { memo } from 'react';
 import useMediaQuery from '@mui/material/useMediaQuery/useMediaQuery';
 import useTheme from '@mui/material/styles/useTheme';
 
@@ -11,7 +11,7 @@ interface HeaderProps {
     onClick: () => void,
 }
 
-const Header: React.FC<HeaderProps> = ({ title, onClick }) => {
+const Header: React.FC<HeaderProps> = memo(({ title, onClick }) => {
 
     const theme = useTheme();
     const xs = useMediaQuery(theme.breakpoints.up("xs"));
@@ -50,6 +50,6 @@ const Header: React.FC<HeaderProps> = ({ title, onClick }) => {
             <span>{`theme.breakpoints.up('sm') matches: ${sm}`}</span> */}
         </>
     )
-}
+});
 
 export default Header

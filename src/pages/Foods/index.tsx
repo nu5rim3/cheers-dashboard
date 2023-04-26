@@ -1,12 +1,14 @@
+import React, { lazy, Suspense, useState } from 'react';
 import Button from '@mui/material/Button/Button';
 import Box from '@mui/material/Box/Box';
 import Grid from '@mui/material/Grid/Grid';
-import React, { useState } from 'react';
 import Header from '../../components/Header';
 import FullModal from '../../components/FullModal';
-import ItemAddForm from './components/forms/ItemAddForm';
+// import ItemAddForm from './components/forms/ItemAddForm';
 import ItemEditForm from './components/forms/ItemEditForm';
 import TableView from './components/TableView';
+
+const ItemAddForm = lazy(() => import('./components/forms/ItemAddForm'));
 
 const Foods = () => {
 
@@ -58,7 +60,11 @@ const Foods = () => {
                 toggleModal={onClickAdd}
                 onSubmit={onSubmit}
             >
-                {isEdit ? <ItemEditForm /> : <ItemAddForm onSubmit={onSubmit} />}
+                {isEdit ? <ItemEditForm /> : 
+
+                    <ItemAddForm onSubmit={onSubmit} />
+                
+                }
             </FullModal>
         </>
     )
