@@ -41,11 +41,8 @@ const FullModal: React.FC<FullmodalProps> = ({ open, isEdit, toggleModal, childr
           <Toolbar>
             
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              {isEdit ? 'Update Food' : 'Add New Food'}
+              {isEdit ? 'Update Item' : 'Add New Item'}
             </Typography>
-            {/* <Button variant='contained' autoFocus onClick={onSubmit}>
-              {isEdit ? 'Update' : 'Save'}
-            </Button> */}
             
             <IconButton
               edge="end"

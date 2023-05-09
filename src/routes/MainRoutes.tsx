@@ -16,6 +16,7 @@ const Payments = Loadable(lazy(() => import('../pages/Payments')));
 const Reviews = Loadable(lazy(() => import('../pages/Reviews')));
 const Customers = Loadable(lazy(() => import('../pages/Customers')));
 const Support = Loadable(lazy(() => import('../pages/Support')));
+const Basic = Loadable(lazy(() => import('../pages/Basic')));
 
 
 // ==============================|| MAIN ROUTING ||============================== //
@@ -29,6 +30,14 @@ const MainRoutes = {
             element: (
                 <ErrorBoundary>
                     <Dashboard />
+                </ErrorBoundary>
+            )
+        },
+        {
+            path: '/basic',
+            element: (
+                <ErrorBoundary>
+                    <Basic />
                 </ErrorBoundary>
             )
         },

@@ -34,11 +34,6 @@ const Foods = () => {
 
     return (
         <>
-            {/* <ul>
-                        <li>CRUD foods table with active status check</li>
-                        <li>perview item</li>
-                    </ul> */}
-
             <Box>
                 <Grid>
                     <Grid item xs={12}>

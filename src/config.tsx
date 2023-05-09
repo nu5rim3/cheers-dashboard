@@ -5,6 +5,7 @@ import TableRestaurantIcon from '@mui/icons-material/TableRestaurant';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import ReviewsIcon from '@mui/icons-material/Reviews';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 
@@ -21,6 +22,13 @@ const routePath: IRoutePath[] = [
         label: 'DashBoard',
         path: '/',
         icon: <DashboardIcon />,
+        active: true,
+        level: 0
+    },
+    {
+        label: 'Basic',
+        path: '/basic',
+        icon: <AddPhotoAlternateIcon />,
         active: true,
         level: 0
     },

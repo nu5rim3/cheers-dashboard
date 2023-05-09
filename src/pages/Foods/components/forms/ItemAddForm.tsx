@@ -75,7 +75,7 @@ const ItemAddForm: React.FC<ItemAddFormProps> = ({ onSubmit }) => {
   // uploading function
   const uploadItem = (value: IFood) => {
     console.log('[FUNC] - uploadItem - ', value)
-    // onSubmit()
+    onSubmit();
   }
 
   // remove image url function
