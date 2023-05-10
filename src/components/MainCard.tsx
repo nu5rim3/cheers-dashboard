@@ -2,7 +2,7 @@ import Box from '@mui/material/Box/Box';
 import Paper from '@mui/material/Paper/Paper'
 import useTheme from '@mui/material/styles/useTheme';
 import useMediaQuery from '@mui/material/useMediaQuery/useMediaQuery';
-import React, { Children } from 'react'
+import React from 'react'
 
 interface MainCardProps {
     children: React.ReactNode

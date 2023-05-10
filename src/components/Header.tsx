@@ -14,10 +14,10 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = memo(({ title, onClick }) => {
 
     const theme = useTheme();
-    const xs = useMediaQuery(theme.breakpoints.up("xs"));
-    const lg = useMediaQuery(theme.breakpoints.up("lg"));
-    const md = useMediaQuery(theme.breakpoints.up("md"));
-    const xl = useMediaQuery(theme.breakpoints.up("xl"));
+    // const xs = useMediaQuery(theme.breakpoints.up("xs"));
+    // const lg = useMediaQuery(theme.breakpoints.up("lg"));
+    // const md = useMediaQuery(theme.breakpoints.up("md"));
+    // const xl = useMediaQuery(theme.breakpoints.up("xl"));
     const sm = useMediaQuery(theme.breakpoints.up("sm"));
 
     return (
