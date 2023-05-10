@@ -1,0 +1,28 @@
+name: Deploy to Vercel
+
+on:
+    push:
+        branches: [main, preview]
+    pull_request:
+        branches: [main, preview]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build the project
+        run: npm run build
+
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v20.1.1
+        with:
+          vercel_token: ${{ secrets.VERCEL_TOKEN }}
+          vercel_org_id: 0jWMrx8I2vraypGGJ6rELgoN
+          vercel_project_id: prj_BLAtoGyLgIyHLzbBFviVDxFuTvFE
