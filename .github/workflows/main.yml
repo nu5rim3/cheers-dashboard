@@ -23,6 +23,6 @@ jobs:
       - name: Vercel Action ${{ secrets.VERCEL_TOKEN }}
         uses: amondnet/vercel-action@v25
         with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-token: 7897hFCy30msbQEZLlb6RlA2
           vercel-org-id: 0jWMrx8I2vraypGGJ6rELgoN
           vercel-project-id: prj_BLAtoGyLgIyHLzbBFviVDxFuTvFE
