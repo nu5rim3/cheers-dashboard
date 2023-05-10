@@ -20,10 +20,9 @@ jobs:
       - name: Build the project
         run: npm run build
 
-      - name: Deploy to Vercel
-        uses: BetaHuhn/deploy-to-vercel-action@v1.9.12
+      - name: Vercel Action
+        uses: amondnet/vercel-action@v25
         with:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: 0jWMrx8I2vraypGGJ6rELgoN
           VERCEL_PROJECT_ID: prj_BLAtoGyLgIyHLzbBFviVDxFuTvFE
