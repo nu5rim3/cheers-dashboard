@@ -2,7 +2,7 @@ import React from 'react'
 
 const ImagePreviewer = () => {
   return (
-    <div>ImagePreviewer</div>
+    <div>Image Previewer</div>
   )
 }
 
