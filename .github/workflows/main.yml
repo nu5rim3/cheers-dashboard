@@ -21,7 +21,7 @@ jobs:
         run: npm run build
 
       - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v25
+        uses: BetaHuhn/deploy-to-vercel-action@v1.9.12
         with:
           vercel_token: ${{ secrets.VERCEL_TOKEN }}
           vercel_org_id: 0jWMrx8I2vraypGGJ6rELgoN
