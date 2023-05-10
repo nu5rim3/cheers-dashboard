@@ -52,7 +52,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = memo(() => {
                   <Paper variant='outlined'>
                     <Box p={theme.spacing(2, 0)}>
 
-                      preview
+                      preview images
                     </Box>
 
                   </Paper>
