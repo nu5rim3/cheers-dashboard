@@ -2,7 +2,7 @@ import React from 'react'
 
 const ImageUpdate = () => {
   return (
-    <div>ImageUpdate</div>
+    <div>Image Update component</div>
   )
 }
 
