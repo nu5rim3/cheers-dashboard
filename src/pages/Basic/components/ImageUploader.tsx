@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react'
+import React, { memo, useCallback, useEffect, useState } from 'react'
 import { ImageUploaderProps } from '../interface';
 import { useDropzone } from 'react-dropzone';
 import Box from '@mui/material/Box/Box';
@@ -7,21 +7,33 @@ import { useTheme } from '@mui/material/styles';
 import Grid from '@mui/material/Grid/Grid';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Button from '@mui/material/Button/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
+import ImageList from '@mui/material/ImageList/ImageList';
+import ImageListItem from '@mui/material/ImageListItem/ImageListItem';
+import IconButton from '@mui/material/IconButton/IconButton';
+import CancelIcon from '@mui/icons-material/Cancel';
 
-// TODO: image uploader with drag n drop
-// TODO: preview before upload
-// TODO: remove signle
-// TODO: upload and clear functions
 
 const ImageUploader: React.FC<ImageUploaderProps> = memo(() => {
 
   const theme: any = useTheme();
+  const [files, setFiles] = useState<File[]>([]);
   const mdMatch = useMediaQuery(theme.breakpoints.up("md"));
 
   const onDrop = useCallback((acceptedFiles: any) => {
     // Do something with the files
+    setFiles(acceptedFiles);
   }, [])
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+
+
+  const onDeleteImage = (lastModified: number) => {
+    setFiles((prevState) => prevState.filter((file) => !(file.lastModified === lastModified)))
+  }
+
+  const onClearAll = () => {
+    setFiles([]);
+  }
 
   return (
     <>
@@ -29,7 +41,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = memo(() => {
         <Paper elevation={2}>
           <Box p={theme.spacing(3, 4)}>
             <Grid container spacing={3} display={'flex'} justifyContent={'center'}>
-              <Grid item xs={12} sm={6} md={6} lg={8} display={'flex'} justifyContent={'center'}>
+              <Grid item xs={12} sm={12} md={12} lg={10} display={'flex'} justifyContent={'center'}>
                 <Box width="100%" textAlign={'center'}>
 
                   <Paper {...getRootProps()} variant='outlined'>
@@ -45,70 +57,109 @@ const ImageUploader: React.FC<ImageUploaderProps> = memo(() => {
 
                 </Box>
               </Grid>
+              {files.length > 0 &&
+                <>
+                  <Grid item xs={12} sm={12} md={12} lg={10} display={'flex'} justifyContent={'center'}>
+                    <Box width="100%" textAlign={'center'}>
 
-              <Grid item xs={12} sm={6} md={6} lg={8} display={'flex'} justifyContent={'center'}>
-                <Box width="100%" textAlign={'center'}>
+                      <Paper variant='outlined'>
+                        <Box p={theme.spacing(2, 0)}>
 
-                  <Paper variant='outlined'>
-                    <Box p={theme.spacing(2, 0)}>
+                          Images perview
 
-                      preview images
+                          <Box display={'flex'} justifyContent={'center'}>
+
+                            <ImageList sx={{ height: 450, paddingX: 5 }} cols={4} rowHeight={164}>
+                              {files.map((item) => (
+                                <Box key={item.lastModified}>
+                                  <ImageListItem>
+                                    <img
+                                      src={URL.createObjectURL(item)}
+                                      srcSet={URL.createObjectURL(item)}
+                                      alt={item.name}
+                                      loading="lazy"
+                                    />
+                                  </ImageListItem>
+                                  <IconButton
+                                    aria-label="delete"
+                                    size="large"
+                                    onClick={() => {
+                                      onDeleteImage(item.lastModified)
+                                    }}
+                                  >
+                                    <CancelIcon fontSize="inherit" color='primary' />
+                                  </IconButton>
+                                </Box>
+
+                              ))}
+                            </ImageList>
+
+                          </Box>
+
+                        </Box>
+
+                      </Paper>
                     </Box>
+                  </Grid>
 
-                  </Paper>
-                </Box>
-              </Grid>
-
-              {mdMatch ?
-                <Grid container>
-                  <Grid item md={8} lg={10} />
-                  <Grid container item spacing={1} md={4} lg={2} display={'flex'} justifyContent={'space-between'} flexDirection={'row'}>
-                    <Grid item md={6} lg={6}>
-                      <Button
-                        color="primary"
-                        variant="outlined"
-                        fullWidth
-                        type="reset"
-                      >
-                        Clear
-                      </Button>
+                  {mdMatch ?
+                    <Grid container pt={3}>
+                      <Grid item md={8} lg={10} />
+                      <Grid container item spacing={1} md={4} lg={2} display={'flex'} justifyContent={'space-between'} flexDirection={'row'}>
+                        <Grid item md={6} lg={6}>
+                          <Button
+                            color="primary"
+                            variant="outlined"
+                            fullWidth
+                            onClick={onClearAll}
+                          >
+                            Clear
+                          </Button>
+                        </Grid>
+                        <Grid item md={6} lg={6}>
+                          <LoadingButton
+                            color="primary"
+                            variant="contained"
+                            fullWidth
+                            type="submit"
+                            loading
+                          >
+                            Submit
+                          </LoadingButton>
+                        </Grid>
+                      </Grid>
                     </Grid>
-                    <Grid item md={6} lg={6}>
-                      <Button
-                        color="primary"
-                        variant="contained"
-                        fullWidth
-                        type="submit"
-                      >
-                        Submit
-                      </Button>
-                    </Grid>
-                  </Grid>
-                </Grid>
-                :
-                <Grid container spacing={1} mt={1}>
-                  <Grid item xs={12} sm={6}>
-                    <Button
-                      color="primary"
-                      variant="outlined"
-                      fullWidth
-                      type="reset"
-                    >
-                      Clear
-                    </Button>
-                  </Grid>
+                    :
+                    <Grid container spacing={1} mt={1}>
+                      <Grid item xs={12} sm={6}>
+                        <Button
+                          color="primary"
+                          variant="outlined"
+                          fullWidth
+                          onClick={onClearAll}
+                        >
+                          Clear
+                        </Button>
+                      </Grid>
 
-                  <Grid item xs={12} sm={6}>
-                    <Button
-                      color="primary"
-                      variant="contained"
-                      fullWidth
-                      type="submit"
-                    >
-                      Submit
-                    </Button>
-                  </Grid>
-                </Grid>}
+                      <Grid item xs={12} sm={6}>
+                        <LoadingButton
+                          color="primary"
+                          variant="contained"
+                          fullWidth
+                          type="submit"
+                          loading
+                        >
+                          Submit
+                        </LoadingButton>
+                      </Grid>
+                    </Grid>}
+                </>
+
+              }
+
+
+
             </Grid>
           </Box>
         </Paper>
