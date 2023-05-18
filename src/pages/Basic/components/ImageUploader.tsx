@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useState } from 'react'
+import React, { memo, useCallback, useState } from 'react'
 import { ImageUploaderProps } from '../interface';
 import { useDropzone } from 'react-dropzone';
 import Box from '@mui/material/Box/Box';
