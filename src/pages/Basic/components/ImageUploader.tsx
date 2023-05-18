@@ -22,7 +22,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = memo(() => {
 
   const onDrop = useCallback((acceptedFiles: any) => {
     // Do something with the files
-    setFiles(acceptedFiles);
+    setFiles(preFiles => [...preFiles, ...acceptedFiles]);
   }, [])
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
@@ -34,6 +34,8 @@ const ImageUploader: React.FC<ImageUploaderProps> = memo(() => {
   const onClearAll = () => {
     setFiles([]);
   }
+
+  console.log(files);
 
   return (
     <>
@@ -71,24 +73,34 @@ const ImageUploader: React.FC<ImageUploaderProps> = memo(() => {
 
                             <ImageList sx={{ height: 450, paddingX: 5 }} cols={4} rowHeight={164}>
                               {files.map((item) => (
-                                <Box key={item.lastModified}>
+                                <Box key={item.lastModified} sx={{ height: 120 }}>
                                   <ImageListItem>
-                                    <img
-                                      src={URL.createObjectURL(item)}
-                                      srcSet={URL.createObjectURL(item)}
-                                      alt={item.name}
-                                      loading="lazy"
-                                    />
+                                    <Box width={350} height={450} border={1}>
+                                      <Box>
+                                        <IconButton
+                                          aria-label="delete"
+                                          size="large"
+                                          onClick={() => {
+                                            onDeleteImage(item.lastModified)
+                                          }}
+                                        >
+                                          <CancelIcon fontSize="inherit" />
+                                        </IconButton>
+                                      </Box>
+                                      <Box display={'flex'} justifyContent={'center'}>
+                                      <img
+                                        style={{float: 'left',
+                                          width:  '100%',
+                                          height: 150,
+                                          objectFit: 'cover' }}
+                                        src={URL.createObjectURL(item)}
+                                        srcSet={URL.createObjectURL(item)}
+                                        alt={item.name}
+                                        loading="lazy"
+                                      />
+                                      </Box>
+                                    </Box>
                                   </ImageListItem>
-                                  <IconButton
-                                    aria-label="delete"
-                                    size="large"
-                                    onClick={() => {
-                                      onDeleteImage(item.lastModified)
-                                    }}
-                                  >
-                                    <CancelIcon fontSize="inherit" color='primary' />
-                                  </IconButton>
                                 </Box>
 
                               ))}
