@@ -19,13 +19,13 @@ const Transition = React.forwardRef(function Transition(
 
 interface FullmodalProps {
   open: boolean,
-  isEdit: boolean,
+  title: string,
   toggleModal: () => void,
   onSubmit: () => void,
   children: React.ReactNode
 }
 
-const FullModal: React.FC<FullmodalProps> = ({ open, isEdit, toggleModal, children, onSubmit }) => {
+const FullModal: React.FC<FullmodalProps> = ({ open, title, toggleModal, children, onSubmit }) => {
 
 
   return (
@@ -38,11 +38,11 @@ const FullModal: React.FC<FullmodalProps> = ({ open, isEdit, toggleModal, childr
       >
         <AppBar sx={{ position: 'relative' }}>
           <Toolbar>
-            
+
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              {isEdit ? 'Update Item' : 'Add New Item'}
+              {title}
             </Typography>
-            
+
             <IconButton
               edge="end"
               onClick={toggleModal}

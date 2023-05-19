@@ -1,16 +1,61 @@
+import { Grid } from '@mui/material';
 import Box from '@mui/material/Box/Box';
-import React from 'react'
+import React, { lazy, useState } from 'react'
+import Header from '../../components/Header';
+import FullModal from '../../components/FullModal';
+import Loadable from '../../components/Loadable';
+
+const AddProfile = Loadable(lazy(() => import('./components/forms/AddProfile')));
+const EditProfile = Loadable(lazy(() => import('./components/forms/EditProfile')));
+const PreviewProfile = Loadable(lazy(() => import('./components/PreviewProfile')));
 
 const Profile = () => {
+
+    const [open, setOpen] = useState<boolean>(false);
+    const [isEdit, setIsEdit] = useState<boolean>(false);
+
+    const onClickAdd = () => {
+        setOpen(!open);
+        setIsEdit(false);
+    }
+
+    const onClickEdit = () => {
+        setOpen(!open);
+        setIsEdit(true);
+    }
+
+    const onSubmit = () => {
+        console.log('[FUNC] - onSubmit')
+        setOpen(!open);
+        setIsEdit(false);
+
+    }
+    
     return (
         <>
-            <Box pt={1} pb={1}>
-                <ul>
-                    <li>CRUD Profile</li>
-                    <li>perview item</li>
-                    <li>availablity</li>
-                </ul>
-            </Box>
+            <Box>
+                <Grid>
+                    <Grid item xs={12}>
+                        <Header title={'Store Profile'} onAddClick={onClickAdd} onEditClick={onClickEdit} primaryActionTitle={'Add Profile'} secondayActionTitle={'Edit Profile'} />
+                    </Grid>
+                </Grid>
+
+                <PreviewProfile />
+
+                <FullModal
+                    open={open}
+                    title={isEdit? 'Edit Profile' : 'Create Profile'}
+                    toggleModal={onClickAdd}
+                    onSubmit={onSubmit}
+                >
+                    {isEdit ? <EditProfile onSubmit={onSubmit} /> :
+
+                        <AddProfile onSubmit={onSubmit} />
+
+                    }
+                </FullModal>
+
+                </Box>
         </>
     )
 }

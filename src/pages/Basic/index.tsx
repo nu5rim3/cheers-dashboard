@@ -39,7 +39,7 @@ const Basic: React.FC = () => {
             <Box>
                 <Grid>
                     <Grid item xs={12}>
-                        <Header title={'Menu List'} onAddClick={onClickAdd} onEditClick={onClickEdit} />
+                        <Header title={'Menu List'} onAddClick={onClickAdd} onEditClick={onClickEdit} primaryActionTitle='Add Menu' secondayActionTitle='Edit Menu' />
                     </Grid>
                 </Grid>
 
@@ -47,7 +47,7 @@ const Basic: React.FC = () => {
 
                 <FullModal
                     open={open}
-                    isEdit={isEdit}
+                    title={isEdit? 'Edit Menu' : 'Add Menu'}
                     toggleModal={onClickAdd}
                     onSubmit={onSubmit}
                 >

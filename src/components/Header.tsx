@@ -10,11 +10,13 @@ import Box from '@mui/material/Box/Box';
 
 interface HeaderProps {
     title: string,
+    primaryActionTitle?: string,
+    secondayActionTitle?: string,
     onAddClick: () => void,
     onEditClick: () => void,
 }
 
-const Header: React.FC<HeaderProps> = memo(({ title, onAddClick, onEditClick }) => {
+const Header: React.FC<HeaderProps> = memo(({ title, primaryActionTitle, secondayActionTitle, onAddClick, onEditClick }) => {
 
     const theme = useTheme();
     // const xs = useMediaQuery(theme.breakpoints.up("xs"));
@@ -39,7 +41,7 @@ const Header: React.FC<HeaderProps> = memo(({ title, onAddClick, onEditClick }) 
                             startIcon={<ModeEditOutlineIcon />}
                             onClick={onEditClick}
                         >
-                            Edit Item
+                            {secondayActionTitle}
                         </Button>
                     </Box>
                     <Box>
@@ -49,7 +51,7 @@ const Header: React.FC<HeaderProps> = memo(({ title, onAddClick, onEditClick }) 
                             startIcon={<AddCircleIcon />}
                             onClick={onAddClick}
                         >
-                            Add New
+                            {primaryActionTitle}
                         </Button>
                     </Box>
                 </Grid>
@@ -66,5 +68,10 @@ const Header: React.FC<HeaderProps> = memo(({ title, onAddClick, onEditClick }) 
         </>
     )
 });
+
+Header.defaultProps = {
+    primaryActionTitle: 'Add Item',
+    secondayActionTitle: 'Edit Item'
+}
 
 export default Header

@@ -7,6 +7,7 @@ import PaymentsIcon from '@mui/icons-material/Payments';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import ReviewsIcon from '@mui/icons-material/Reviews';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import StoreIcon from '@mui/icons-material/Store';
 
 interface IRoutePath {
     label: string,
@@ -28,6 +29,13 @@ const routePath: IRoutePath[] = [
         label: 'Basic',
         path: '/basic',
         icon: <AddPhotoAlternateIcon />,
+        active: true,
+        level: 0
+    },
+    {
+        label: 'Store Profile',
+        path: '/profile',
+        icon: <StoreIcon />,
         active: true,
         level: 0
     },

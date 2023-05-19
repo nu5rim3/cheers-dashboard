@@ -48,7 +48,7 @@ const Foods = () => {
 
             <FullModal
                 open={open}
-                isEdit={isEdit}
+                title={isEdit? 'Edit Food': 'Add New Food'}
                 toggleModal={onClickAdd}
                 onSubmit={onSubmit}
             >
