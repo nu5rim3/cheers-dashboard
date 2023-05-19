@@ -2,16 +2,19 @@ import Button from '@mui/material/Button/Button';
 import Grid from '@mui/material/Grid/Grid';
 import Typography from '@mui/material/Typography/Typography';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import React, { memo } from 'react';
 import useMediaQuery from '@mui/material/useMediaQuery/useMediaQuery';
 import useTheme from '@mui/material/styles/useTheme';
+import Box from '@mui/material/Box/Box';
 
 interface HeaderProps {
     title: string,
-    onClick: () => void,
+    onAddClick: () => void,
+    onEditClick: () => void,
 }
 
-const Header: React.FC<HeaderProps> = memo(({ title, onClick }) => {
+const Header: React.FC<HeaderProps> = memo(({ title, onAddClick, onEditClick }) => {
 
     const theme = useTheme();
     // const xs = useMediaQuery(theme.breakpoints.up("xs"));
@@ -22,21 +25,33 @@ const Header: React.FC<HeaderProps> = memo(({ title, onClick }) => {
 
     return (
         <>
-            <Grid container>
+            <Grid container mb={4}>
                 <Grid item xs={12} sm={6}>
                     <Typography variant={'h5'}>
                         {title}
                     </Typography>
                 </Grid>
-                <Grid item xs={12} sm={6} display={'flex'} justifyContent={sm ? 'flex-end' : 'flex-start'}>
-                    <Button
-                        color='primary'
-                        variant='contained'
-                        startIcon={<AddCircleIcon />}
-                        onClick={onClick}
-                    >
-                        Add New
-                    </Button>
+                <Grid item xs={12} sm={6} spacing={1} display={'flex'} justifyContent={sm ? 'flex-end' : 'flex-start'}>
+                    <Box mr={1}>
+                        <Button
+                            color='primary'
+                            variant='outlined'
+                            startIcon={<ModeEditOutlineIcon />}
+                            onClick={onEditClick}
+                        >
+                            Edit Item
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button
+                            color='primary'
+                            variant='contained'
+                            startIcon={<AddCircleIcon />}
+                            onClick={onAddClick}
+                        >
+                            Add New
+                        </Button>
+                    </Box>
                 </Grid>
             </Grid>
             {/* <span>{`theme.breakpoints.up('xs') matches: ${xs}`}</span>

@@ -39,11 +39,9 @@ const Basic: React.FC = () => {
             <Box>
                 <Grid>
                     <Grid item xs={12}>
-                        <Header title={'Menu List'} onClick={onClickAdd} />
+                        <Header title={'Menu List'} onAddClick={onClickAdd} onEditClick={onClickEdit} />
                     </Grid>
                 </Grid>
-
-                <Button onClick={onClickEdit}>Edit mode</Button>
 
                 <ImagePreviewer />
 
@@ -53,7 +51,7 @@ const Basic: React.FC = () => {
                     toggleModal={onClickAdd}
                     onSubmit={onSubmit}
                 >
-                    {isEdit ? <ImageUpdate /> :
+                    {isEdit ? <ImageUpdate onSubmit={onSubmit} /> :
 
                         <ImageUploader onSubmit={onSubmit} />
 

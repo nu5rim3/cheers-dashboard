@@ -37,7 +37,7 @@ const Foods = () => {
             <Box>
                 <Grid>
                     <Grid item xs={12}>
-                        <Header title={'Foods List'} onClick={onClickAdd} />
+                        <Header title={'Foods List'} onAddClick={onClickAdd} onEditClick={onClickEdit} />
                     </Grid>
                     <Grid item xs={12} sm={4}>
                         <TableView />
@@ -45,9 +45,6 @@ const Foods = () => {
                 </Grid>
             </Box>
 
-
-
-            <Button onClick={onClickEdit}>Edit mode</Button>
 
             <FullModal
                 open={open}
