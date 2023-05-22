@@ -8,6 +8,7 @@ import MinimalLayout from '../layout/MinimalLayout';
 const AuthCard = Loadable(lazy(() => import('../pages/authentication/AuthCard')));
 const AuthRegister = Loadable(lazy(() => import('../pages/authentication/Register')));
 const ResetUser = Loadable(lazy(() => import('../pages/authentication/Rest')));
+const ImagePreviewer = Loadable(lazy(() => import('../pages/Basic/components/ImagePreviewer')));
 
 // ==============================|| AUTH ROUTING ||============================== //
 
@@ -26,7 +27,12 @@ const LoginRoutes = {
         {
             path: 'reset',
             element: <ResetUser />
-        }
+        },
+        {
+            path: 'preview',
+            element: <ImagePreviewer />
+        },
+
     ]
 };
 
