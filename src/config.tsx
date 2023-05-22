@@ -18,13 +18,13 @@ interface IRoutePath {
 
 }
 const routePath: IRoutePath[] = [
-    {
-        label: 'DashBoard',
-        path: '/',
-        icon: <DashboardIcon />,
-        active: true,
-        level: 0
-    },
+    // {
+    //     label: 'DashBoard',
+    //     path: '/',
+    //     icon: <DashboardIcon />,
+    //     active: true,
+    //     level: 0
+    // },
     {
         label: 'Basic',
         path: '/basic',
@@ -39,55 +39,55 @@ const routePath: IRoutePath[] = [
         active: true,
         level: 0
     },
-    {
-        label: 'Foods',
-        path: '/foods',
-        icon: <DinnerDiningIcon />,
-        active: false,
-        level: 0
-    },
-    {
-        label: 'Beverages',
-        path: '/beverages',
-        icon: <LiquorIcon />,
-        active: false,
-        level: 0
-    },
-    {
-        label: 'Tables',
-        path: '/tables',
-        icon: <TableRestaurantIcon />,
-        active: false,
-        level: 0
-    },
-    {
-        label: 'Customers',
-        path: '/customers',
-        icon: <PeopleAltIcon />,
-        active: false,
-        level: 1
-    },
-    {
-        label: 'Reviews',
-        path: '/reviews',
-        icon: <ReviewsIcon />,
-        active: false,
-        level: 1
-    },
-    {
-        label: 'Payments',
-        path: '/payments',
-        icon: <PaymentsIcon />,
-        active: false,
-        level: 1
-    },
-    {
-        label: 'Support',
-        path: '/support',
-        icon: <SupportAgentIcon />,
-        active: false,
-        level: 1
-    }
+    // {
+    //     label: 'Foods',
+    //     path: '/foods',
+    //     icon: <DinnerDiningIcon />,
+    //     active: false,
+    //     level: 0
+    // },
+    // {
+    //     label: 'Beverages',
+    //     path: '/beverages',
+    //     icon: <LiquorIcon />,
+    //     active: false,
+    //     level: 0
+    // },
+    // {
+    //     label: 'Tables',
+    //     path: '/tables',
+    //     icon: <TableRestaurantIcon />,
+    //     active: false,
+    //     level: 0
+    // },
+    // {
+    //     label: 'Customers',
+    //     path: '/customers',
+    //     icon: <PeopleAltIcon />,
+    //     active: false,
+    //     level: 1
+    // },
+    // {
+    //     label: 'Reviews',
+    //     path: '/reviews',
+    //     icon: <ReviewsIcon />,
+    //     active: false,
+    //     level: 1
+    // },
+    // {
+    //     label: 'Payments',
+    //     path: '/payments',
+    //     icon: <PaymentsIcon />,
+    //     active: false,
+    //     level: 1
+    // },
+    // {
+    //     label: 'Support',
+    //     path: '/support',
+    //     icon: <SupportAgentIcon />,
+    //     active: false,
+    //     level: 1
+    // }
 ]
 
 export default routePath;

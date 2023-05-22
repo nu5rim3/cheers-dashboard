@@ -25,11 +25,19 @@ const MainRoutes = {
     path: '/',
     element: <MainLayout />,
     children: [
+        // {
+        //     path: '/',
+        //     element: (
+        //         <ErrorBoundary>
+        //             <Dashboard />
+        //         </ErrorBoundary>
+        //     )
+        // },
         {
             path: '/',
             element: (
                 <ErrorBoundary>
-                    <Dashboard />
+                    <Basic />
                 </ErrorBoundary>
             )
         },
