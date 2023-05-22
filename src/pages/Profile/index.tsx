@@ -6,7 +6,7 @@ import FullModal from '../../components/FullModal';
 import Loadable from '../../components/Loadable';
 
 const AddProfile = Loadable(lazy(() => import('./components/forms/AddProfile')));
-const EditProfile = Loadable(lazy(() => import('./components/forms/EditProfile')));
+// const EditProfile = Loadable(lazy(() => import('./components/forms/EditProfile')));
 const PreviewProfile = Loadable(lazy(() => import('./components/PreviewProfile')));
 
 const Profile = () => {
@@ -30,7 +30,7 @@ const Profile = () => {
         setIsEdit(false);
 
     }
-    
+
     return (
         <>
             <Box>
@@ -44,18 +44,15 @@ const Profile = () => {
 
                 <FullModal
                     open={open}
-                    title={isEdit? 'Edit Profile' : 'Create Profile'}
+                    title={isEdit ? 'Edit Store Profile' : 'Create Store Profile'}
                     toggleModal={onClickAdd}
                     onSubmit={onSubmit}
                 >
-                    {isEdit ? <EditProfile onSubmit={onSubmit} /> :
+                    <AddProfile onSubmit={onSubmit} id={isEdit ? '1' : ''} /> 
 
-                        <AddProfile onSubmit={onSubmit} />
-
-                    }
                 </FullModal>
 
-                </Box>
+            </Box>
         </>
     )
 }

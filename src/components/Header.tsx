@@ -33,7 +33,7 @@ const Header: React.FC<HeaderProps> = memo(({ title, primaryActionTitle, seconda
                         {title}
                     </Typography>
                 </Grid>
-                <Grid item xs={12} sm={6} spacing={1} display={'flex'} justifyContent={sm ? 'flex-end' : 'flex-start'}>
+                <Grid item xs={12} sm={6} display={'flex'} justifyContent={sm ? 'flex-end' : 'flex-start'}>
                     <Box mr={1}>
                         <Button
                             color='primary'
