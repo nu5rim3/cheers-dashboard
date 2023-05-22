@@ -1,6 +1,7 @@
-import { Box, Typography, TextField, FormControlLabel, Checkbox, Grid, Container, Link, Button, Paper } from '@mui/material';
-import { GoogleLoginButton } from "react-social-login-buttons";
 import React from 'react'
+import { Box, Typography, TextField, Grid, Container, Link as MuiLink, Button, Paper } from '@mui/material';
+import { GoogleLoginButton } from "react-social-login-buttons";
+import { Link } from 'react-router-dom';
 
 const Register = () => {
   const handleSubmit = (event: any) => {
@@ -77,9 +78,9 @@ const Register = () => {
             <Grid item xs>
             </Grid>
             <Grid item>
-              <Link href="/login" variant="body2">
+              <MuiLink component={Link}  to="/login" variant="body2">
                 {"Already have an account? Sign In"}
-              </Link>
+              </MuiLink>
             </Grid>
           </Grid>
         </Box>

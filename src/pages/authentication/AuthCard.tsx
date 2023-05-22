@@ -1,5 +1,6 @@
-import { Box, Typography, TextField, FormControlLabel, Checkbox, Grid, Container, Link, Button, Paper } from '@mui/material';
+import { Box, Typography, TextField, FormControlLabel, Checkbox, Grid, Container, Button, Paper, Link as MuiLink } from '@mui/material';
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 const AuthCard = () => {
   const handleSubmit = (event: any) => {
@@ -67,14 +68,14 @@ const AuthCard = () => {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="/reset" variant="body2">
+            <MuiLink component={Link}to="/reset">
                 Forgot password?
-              </Link>
+              </MuiLink>
             </Grid>
             <Grid item>
-              <Link href="/register" variant="body2">
+              <MuiLink component={Link} to="/register">
                 {"Don't have an account? Sign Up"}
-              </Link>
+              </MuiLink>
             </Grid>
           </Grid>
         </Box>
