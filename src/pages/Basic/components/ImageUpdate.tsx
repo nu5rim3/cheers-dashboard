@@ -14,6 +14,7 @@ import ImageListItem from '@mui/material/ImageListItem/ImageListItem';
 import IconButton from '@mui/material/IconButton/IconButton';
 import CancelIcon from '@mui/icons-material/Cancel';
 import ImageListItemBar from '@mui/material/ImageListItemBar/ImageListItemBar';
+import { Typography } from '@mui/material';
 
 const imageFiles = [
   {
@@ -113,8 +114,9 @@ const ImageUpdate: React.FC<ImageUploaderProps> = memo(() => {
 
                   <Paper variant='outlined'>
                     <Box p={theme.spacing(2, 0)}>
-
-                      Uploaded images
+                      <Typography variant='body1'>
+                        Uploaded images
+                      </Typography>
 
                       <Box>
 
@@ -165,7 +167,8 @@ const ImageUpdate: React.FC<ImageUploaderProps> = memo(() => {
                         </ImageList>
 
                       </Box>
-                      {isSortSelected &&
+
+                      {isSortSelected ?
                         <LoadingButton
                           color="primary"
                           variant="contained"
@@ -176,6 +179,10 @@ const ImageUpdate: React.FC<ImageUploaderProps> = memo(() => {
                         >
                           Update menu pages order
                         </LoadingButton>
+                        :
+                        <Typography variant='caption'>
+                          Drag from the title to arrange the order of the menu
+                        </Typography>
                       }
                     </Box>
 
