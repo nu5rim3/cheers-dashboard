@@ -13,18 +13,33 @@ import ImageList from '@mui/material/ImageList/ImageList';
 import ImageListItem from '@mui/material/ImageListItem/ImageListItem';
 import IconButton from '@mui/material/IconButton/IconButton';
 import CancelIcon from '@mui/icons-material/Cancel';
+import ImageListItemBar from '@mui/material/ImageListItemBar/ImageListItemBar';
 
 const imageFiles = [
   {
     id: '1',
+    index: 1,
     name: 'image1',
     imageUrl: 'http://via.placeholder.com/500x700'
   },
   {
     id: '2',
+    index: 2,
     name: 'image2',
     imageUrl: 'http://via.placeholder.com/500x700'
-  }
+  },
+  {
+    id: '3',
+    index: 3,
+    name: 'image3',
+    imageUrl: 'http://via.placeholder.com/500x700'
+  },
+  {
+    id: '4',
+    index: 4,
+    name: 'image4',
+    imageUrl: 'http://via.placeholder.com/500x700'
+  },
 ];
 
 
@@ -32,6 +47,9 @@ const ImageUpdate: React.FC<ImageUploaderProps> = memo(() => {
 
   const theme: any = useTheme();
   const [files, setFiles] = useState<File[]>([]);
+  const [uploadedImageList, setUploadedImageList] = useState<any[]>(imageFiles)
+  const [selectedIndex, setSelectedIndex] = useState<number>(0);
+  const [isSortSelected, setIsSortSelected] = useState<boolean>(false);
   const mdMatch = useMediaQuery(theme.breakpoints.up("md"));
 
   const onDrop = useCallback((acceptedFiles: any) => {
@@ -49,9 +67,40 @@ const ImageUpdate: React.FC<ImageUploaderProps> = memo(() => {
     setFiles([]);
   }
 
-const onDeleteUploaded = (id: string) => {
-  console.log('[API] - delete image')
-}
+  // API CALLS
+  const onDeleteUploaded = (id: string) => {
+    console.log('[API] - delete image')
+  }
+
+
+  const onUpdateOrder = () => {
+    console.log('[API] - update order - ', uploadedImageList)
+    setIsSortSelected(false);
+  }
+
+  // END API CALLS
+
+  const onHandleDragStart = (index: number) => {
+    console.log('selected - ', index)
+    setSelectedIndex(index);
+    setIsSortSelected(true);
+  }
+
+  const onHadleDragLeaveCapture = (index: number) => {
+    const newArr = moveItem(uploadedImageList, selectedIndex, index);
+    setUploadedImageList(newArr);
+  }
+
+  const moveItem = (
+    arr: any[],
+    from: number,
+    to: number
+  ): any[] => {
+    const copiedArray = [...arr];
+    const [removedItem] = copiedArray.splice(from, 1);
+    copiedArray.splice(to, 0, removedItem);
+    return copiedArray;
+  };
 
   return (
     <>
@@ -67,39 +116,48 @@ const onDeleteUploaded = (id: string) => {
 
                       Uploaded images
 
-                      <Box display={'flex'} justifyContent={'center'}>
+                      <Box>
 
-                        <ImageList sx={{ height: 450, paddingX: 5 }} cols={4} rowHeight={164}>
-                          {imageFiles.map((item) => (
-                            <Box key={item.id} sx={{ height: 120 }}>
+                        <ImageList sx={{ height: 450, paddingX: 5 }} cols={6} rowHeight={150}>
+                          {uploadedImageList.map((item, index) => (
+                            <Box
+                              key={item.id}
+                              component={'div'}
+                              draggable
+                              onDragStartCapture={() => onHandleDragStart(index)}
+                              // onDragOverCapture={
+                              //   () => console.log(index)
+                              // }
+                              onDragLeaveCapture={
+                                () => onHadleDragLeaveCapture(index)
+                              }
+                            >
                               <ImageListItem>
-                                <Box width={350} height={450} border={1}>
-                                  <Box>
+                                <ImageListItemBar
+                                  title={item.name}
+                                  position="below"
+                                  actionIcon={
                                     <IconButton
-                                      aria-label="delete"
-                                      size="large"
+                                      aria-label={`info about ${item.name}`}
                                       onClick={() => {
                                         onDeleteUploaded(item.id)
                                       }}
                                     >
                                       <CancelIcon fontSize="inherit" />
                                     </IconButton>
-                                  </Box>
-                                  <Box display={'flex'} justifyContent={'center'}>
-                                    <img
-                                      style={{
-                                        float: 'left',
-                                        width: '100%',
-                                        height: 250,
-                                        objectFit: 'cover'
-                                      }}
-                                      src={item.imageUrl}
-                                      srcSet={item.imageUrl}
-                                      alt={item.name}
-                                      loading="lazy"
-                                    />
-                                  </Box>
-                                </Box>
+                                  }
+                                />
+                                <img
+                                  style={{
+                                    float: 'left',
+                                    width: '100%',
+                                    objectFit: 'cover'
+                                  }}
+                                  src={item.imageUrl}
+                                  srcSet={item.imageUrl}
+                                  alt={item.name}
+                                  loading="lazy"
+                                />
                               </ImageListItem>
                             </Box>
 
@@ -107,7 +165,18 @@ const onDeleteUploaded = (id: string) => {
                         </ImageList>
 
                       </Box>
-
+                      {isSortSelected &&
+                        <LoadingButton
+                          color="primary"
+                          variant="contained"
+                          // fullWidth
+                          // type="submit"
+                          // loading
+                          onClick={onUpdateOrder}
+                        >
+                          Update menu pages order
+                        </LoadingButton>
+                      }
                     </Box>
 
                   </Paper>
@@ -185,7 +254,6 @@ const onDeleteUploaded = (id: string) => {
                       </Paper>
                     </Box>
                   </Grid>
-
                   {mdMatch ?
                     <Grid container pt={3}>
                       <Grid item md={8} lg={10} />
@@ -206,7 +274,7 @@ const onDeleteUploaded = (id: string) => {
                             variant="contained"
                             fullWidth
                             type="submit"
-                            loading
+                          // loading
                           >
                             Submit
                           </LoadingButton>
@@ -232,14 +300,13 @@ const onDeleteUploaded = (id: string) => {
                           variant="contained"
                           fullWidth
                           type="submit"
-                          loading
+                        // loading
                         >
                           Submit
                         </LoadingButton>
                       </Grid>
                     </Grid>}
                 </>
-
               }
 
 
