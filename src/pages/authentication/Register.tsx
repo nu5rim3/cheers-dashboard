@@ -3,11 +3,11 @@ import { Box, Typography, Grid, Container, Link as MuiLink, Paper, FormControl, 
 import { GoogleLoginButton } from "react-social-login-buttons";
 import { Link, useNavigate } from 'react-router-dom';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
-import { auth } from '../../firebase';
+import { auth, googleProvider } from '../../firebase';
 import { ISignUp } from './interface';
 import { useFormik } from 'formik';
 import { validationsSignUp } from './validation';
-import { useAuthCreateUserWithEmailAndPassword } from '@react-query-firebase/auth';
+import { useAuthCreateUserWithEmailAndPassword, useAuthSignInWithPopup } from '@react-query-firebase/auth';
 import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 
 const initialValue: ISignUp = {
@@ -39,6 +39,16 @@ const Register = () => {
     }
   });
 
+  const mutationGoogle = useAuthSignInWithPopup(auth, {
+    onError(error: any) {
+      setError(true);
+    },
+    onSuccess(userCredential: any) {
+      console.log("Valid action code!", userCredential);
+      navigate('/');
+    },
+  });
+
   const mutation = useAuthCreateUserWithEmailAndPassword(auth, {
     onError(error: any) {
       setError(true);
@@ -62,6 +72,12 @@ const Register = () => {
     setError(false);
     setErrorMsg('');
   };
+
+  const signWithGoogle = () => {
+    mutationGoogle.mutate({
+      provider: googleProvider
+    })
+  }
 
   return (
     <Container component="main" maxWidth="sm">
@@ -181,7 +197,7 @@ const Register = () => {
           alignItems: "center",
         }}
       >
-        <GoogleLoginButton align='center' onClick={() => alert("Hello")} />
+        <GoogleLoginButton align='center' onClick={signWithGoogle} />
       </Paper>
 
       <Snackbar

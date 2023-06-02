@@ -2,14 +2,15 @@ import { Box, Typography, FormControlLabel, Checkbox, Grid, Container, Paper, Li
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { GoogleLoginButton } from 'react-social-login-buttons';
-import { auth } from '../../firebase';
+import { auth, googleProvider } from '../../firebase';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import { ISignIn } from './interface';
 import { useFormik } from 'formik';
 import { validationsSignIn } from './validation';
 import FormHelperText from '@mui/material/FormHelperText';
-import { useAuthSignInWithEmailAndPassword } from "@react-query-firebase/auth";
+import { useAuthSignInWithEmailAndPassword, useAuthSignInWithPopup } from "@react-query-firebase/auth";
 import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
+import { GoogleAuthProvider } from "firebase/auth";
 
 const initialValue: ISignIn = {
   email: '',
@@ -39,6 +40,16 @@ const AuthCard = () => {
     }
   });
 
+  const mutationGoogle = useAuthSignInWithPopup(auth, {
+    onError(error: any) {
+      setError(true);
+    },
+    onSuccess(userCredential: any) {
+      console.log("Valid action code!", userCredential);
+      navigate('/');
+    },
+  });
+
   const mutation = useAuthSignInWithEmailAndPassword(auth, {
     onError(error: any) {
       setError(true);
@@ -58,9 +69,14 @@ const AuthCard = () => {
     if (reason === 'clickaway') {
       return;
     }
-
     setError(false);
   };
+
+  const signWithGoogle = () => {
+    mutationGoogle.mutate({
+      provider: googleProvider
+    })
+  }
 
   return (
     <Container component="main" maxWidth="sm">
@@ -163,7 +179,7 @@ const AuthCard = () => {
           alignItems: "center",
         }}
       >
-        <GoogleLoginButton align='center' onClick={() => console.log('CAll Google cred API')} />
+        <GoogleLoginButton align='center' onClick={signWithGoogle} />
       </Paper>
 
       <Snackbar
