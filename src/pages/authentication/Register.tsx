@@ -1,16 +1,66 @@
-import React from 'react'
-import { Box, Typography, TextField, Grid, Container, Link as MuiLink, Button, Paper } from '@mui/material';
+import React, { useState } from 'react'
+import { Box, Typography, Grid, Container, Link as MuiLink, Paper, FormControl, FilledInput, IconButton, InputAdornment, InputLabel, Alert, Snackbar, FormHelperText } from '@mui/material';
 import { GoogleLoginButton } from "react-social-login-buttons";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { VisibilityOff, Visibility } from '@mui/icons-material';
+import { auth } from '../../firebase';
+import { ISignUp } from './interface';
+import { useFormik } from 'formik';
+import { validationsSignUp } from './validation';
+import { useAuthCreateUserWithEmailAndPassword } from '@react-query-firebase/auth';
+import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
+
+const initialValue: ISignUp = {
+  email: '',
+  password: '',
+  confirmPassword: '',
+}
 
 const Register = () => {
-  const handleSubmit = (event: any) => {
+
+  const navigate = useNavigate();
+
+  const [error, setError] = useState<boolean>(false);
+  const [errorMsg, setErrorMsg] = useState<string>('');
+
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  };
+
+  const formik = useFormik({
+    initialValues: initialValue,
+    validationSchema: validationsSignUp,
+    onSubmit: (values: ISignUp) => {
+      handleCreateWithEmail(values);
+    }
+  });
+
+  const mutation = useAuthCreateUserWithEmailAndPassword(auth, {
+    onError(error: any) {
+      setError(true);
+      setErrorMsg('Your account was not created. Please try again!')
+    },
+    onSuccess(userCredential: any) {
+      console.log("Valid action code!", userCredential);
+      navigate('/login');
+    },
+  });
+
+  const handleCreateWithEmail = (cridentional: ISignUp) => {
+    mutation.mutate({ email: cridentional.email, password: cridentional.password });
+  }
+
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setError(false);
+    setErrorMsg('');
   };
 
   return (
@@ -34,51 +84,85 @@ const Register = () => {
         <Typography component="h1" variant="h5">
           Create Account
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Confirm Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
+        <br />
+        <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
+          <FormControl sx={{ marginBottom: 2, width: '100%' }} variant="filled">
+            <InputLabel htmlFor="email">Email</InputLabel>
+            <FilledInput
+              id="email"
+              type={'text'}
+              onChange={formik.handleChange}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+            />
+            {(formik.touched.email && Boolean(formik.errors.email)) &&
+              <FormHelperText error>{formik.touched.email && formik.errors.email}</FormHelperText>
+            }
+          </FormControl>
 
-          <Button
+          <FormControl sx={{ marginBottom: 2, width: '100%' }} variant="filled">
+            <InputLabel htmlFor="password">Password</InputLabel>
+            <FilledInput
+              id="password"
+              type={showPassword ? 'text' : 'password'}
+              onChange={formik.handleChange}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+            {(formik.touched.password && Boolean(formik.errors.password)) &&
+              <FormHelperText error>{formik.touched.password && formik.errors.password}</FormHelperText>
+            }
+          </FormControl>
+
+          <FormControl sx={{ width: '100%' }} variant="filled">
+            <InputLabel htmlFor="confirmPassword">Confirm Password</InputLabel>
+            <FilledInput
+              id="confirmPassword"
+              type={showPassword ? 'text' : 'password'}
+              onChange={formik.handleChange}
+              error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle confirm password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+            {(formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)) &&
+              <FormHelperText error>{formik.touched.confirmPassword && formik.errors.confirmPassword}</FormHelperText>
+            }
+          </FormControl>
+
+          <LoadingButton
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            loading={mutation.isLoading}
           >
             Create Account
-          </Button>
+          </LoadingButton>
           <Grid container>
             <Grid item xs>
             </Grid>
             <Grid item>
-              <MuiLink component={Link}  to="/login" variant="body2">
+              <MuiLink component={Link} to="/login" variant="body2">
                 {"Already have an account? Sign In"}
               </MuiLink>
             </Grid>
@@ -99,6 +183,21 @@ const Register = () => {
       >
         <GoogleLoginButton align='center' onClick={() => alert("Hello")} />
       </Paper>
+
+      <Snackbar
+        open={error}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center'
+        }}
+      >
+        <Alert severity="error" onClose={handleClose}>
+          {errorMsg}
+        </Alert>
+      </Snackbar>
+
     </Container>
   )
 }

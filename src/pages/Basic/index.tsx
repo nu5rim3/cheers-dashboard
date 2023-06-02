@@ -55,8 +55,6 @@ const Basic: React.FC = () => {
         QRCode.toDataURL(QRurl, { width: 300 }, (error, url) => {
             setQR(url)
         })
-
-
     }
 
 
