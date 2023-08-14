@@ -1,8 +1,30 @@
 import { Box } from '@mui/material';
-import React from 'react'
+import React, { useEffect } from 'react'
 import HTMLFlipBook from 'react-pageflip';
+import { useParams } from 'react-router-dom';
 
-const ImagePreviewer = () => {
+interface IImagePreviewer {
+  id: string
+}
+
+const ImagePreviewer: React.FC <IImagePreviewer>= ({id}) => {
+
+  let { userId } = useParams();
+
+
+  const getMenuDetails = (userId: string | undefined) => {
+    console.log('[API] - get menu images - ', userId);
+  }
+
+
+  useEffect(() => {
+    if(userId) {
+      getMenuDetails(userId);
+    } else {
+      getMenuDetails(id);
+    }
+  }, [userId])
+
 
   return (
     <Box>

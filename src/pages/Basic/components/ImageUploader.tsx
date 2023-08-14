@@ -35,8 +35,6 @@ const ImageUploader: React.FC<ImageUploaderProps> = memo(() => {
     setFiles([]);
   }
 
-  console.log(files);
-
   return (
     <>
       <Box p={theme.spacing(2)}>

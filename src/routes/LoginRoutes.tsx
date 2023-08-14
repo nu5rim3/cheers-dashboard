@@ -29,7 +29,7 @@ const LoginRoutes = {
             element: <ResetUser />
         },
         {
-            path: 'preview',
+            path: 'preview/:userId',
             element: <ImagePreviewer />
         },
 

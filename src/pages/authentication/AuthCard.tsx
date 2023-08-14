@@ -1,16 +1,82 @@
-import { Box, Typography, TextField, FormControlLabel, Checkbox, Grid, Container, Button, Paper, Link as MuiLink } from '@mui/material';
-import React from 'react'
-import { Link } from 'react-router-dom';
+import { Box, Typography, FormControlLabel, Checkbox, Grid, Container, Paper, Link as MuiLink, Snackbar, Alert, FilledInput, FormControl, InputLabel, IconButton, InputAdornment } from '@mui/material';
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
+import { GoogleLoginButton } from 'react-social-login-buttons';
+import { auth, googleProvider } from '../../firebase';
+import { VisibilityOff, Visibility } from '@mui/icons-material';
+import { ISignIn } from './interface';
+import { useFormik } from 'formik';
+import { validationsSignIn } from './validation';
+import FormHelperText from '@mui/material/FormHelperText';
+import { useAuthSignInWithEmailAndPassword, useAuthSignInWithPopup } from "@react-query-firebase/auth";
+import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
+import { GoogleAuthProvider } from "firebase/auth";
+
+const initialValue: ISignIn = {
+  email: '',
+  password: ''
+}
 
 const AuthCard = () => {
-  const handleSubmit = (event: any) => {
+
+  const navigate = useNavigate();
+
+  const [error, setError] = useState<boolean>(false);
+
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
   };
+
+  const formik = useFormik({
+    initialValues: initialValue,
+    validationSchema: validationsSignIn,
+    onSubmit: (values: ISignIn) => {
+      console.log(values)
+      handleLoginWithEmail(values);
+    }
+  });
+
+  const mutationGoogle = useAuthSignInWithPopup(auth, {
+    onError(error: any) {
+      setError(true);
+    },
+    onSuccess(userCredential: any) {
+      console.log("Valid action code!", userCredential);
+      navigate('/');
+    },
+  });
+
+  const mutation = useAuthSignInWithEmailAndPassword(auth, {
+    onError(error: any) {
+      setError(true);
+    },
+    onSuccess(userCredential: any) {
+      console.log("Valid action code!", userCredential);
+      navigate('/');
+    },
+  });
+
+  const handleLoginWithEmail = (cridentional: ISignIn) => {
+    mutation.mutate(cridentional);
+  }
+
+
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setError(false);
+  };
+
+  const signWithGoogle = () => {
+    mutationGoogle.mutate({
+      provider: googleProvider
+    })
+  }
 
   return (
     <Container component="main" maxWidth="sm">
@@ -33,42 +99,62 @@ const AuthCard = () => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
+        <br />
+        <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
+          <FormControl sx={{ marginBottom: 2, width: '100%' }} variant="filled">
+            <InputLabel htmlFor="email">Email</InputLabel>
+            <FilledInput
+              id="email"
+              type={'text'}
+              onChange={formik.handleChange}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+            />
+            {(formik.touched.email && Boolean(formik.errors.email)) &&
+              <FormHelperText error>{formik.touched.email && formik.errors.email}</FormHelperText>
+            }
+          </FormControl>
+
+          <FormControl sx={{ marginBottom: 2, width: '100%' }} variant="filled">
+            <InputLabel htmlFor="password">Password</InputLabel>
+            <FilledInput
+              id="password"
+              type={showPassword ? 'text' : 'password'}
+              onChange={formik.handleChange}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+            {(formik.touched.password && Boolean(formik.errors.password)) &&
+              <FormHelperText error>{formik.touched.password && formik.errors.password}</FormHelperText>
+            }
+          </FormControl>
+
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          <Button
+          <LoadingButton
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            loading={mutation.isLoading}
           >
             Sign In
-          </Button>
+          </LoadingButton>
           <Grid container>
             <Grid item xs>
-            <MuiLink component={Link}to="/reset">
+              <MuiLink component={Link} to="/reset">
                 Forgot password?
               </MuiLink>
             </Grid>
@@ -80,6 +166,35 @@ const AuthCard = () => {
           </Grid>
         </Box>
       </Paper>
+
+      <Paper
+        sx={{
+          boxShadow: 3,
+          borderRadius: 2,
+          px: 4,
+          py: 6,
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <GoogleLoginButton align='center' onClick={signWithGoogle} />
+      </Paper>
+
+      <Snackbar
+        open={error}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center'
+        }}
+      >
+        <Alert severity="error" onClose={handleClose}>
+          Email or Password is incorrect. Please try again!
+        </Alert>
+      </Snackbar>
     </Container>
   )
 }
