@@ -4,6 +4,9 @@ import React, { lazy, useState } from 'react'
 import Header from '../../components/Header';
 import FullModal from '../../components/FullModal';
 import Loadable from '../../components/Loadable';
+import {Restaurent} from '../../shared/services/interfaces'
+import RestaurentService from '../../shared/services/services'
+
 
 const AddProfile = Loadable(lazy(() => import('./components/forms/AddProfile')));
 // const EditProfile = Loadable(lazy(() => import('./components/forms/EditProfile')));
@@ -26,6 +29,7 @@ const Profile = () => {
 
     const onSubmit = () => {
         console.log('[FUNC] - onSubmit')
+        RestaurentService.addRestaurent()
         setOpen(!open);
         setIsEdit(false);
 
