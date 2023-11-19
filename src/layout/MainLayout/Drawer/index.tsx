@@ -18,15 +18,18 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MailIcon from '@mui/icons-material/Mail';
+import LanguageIcon from '@mui/icons-material/Language';
 import { useDispatch, useSelector } from 'react-redux';
 import Switch from '@mui/material/Switch/Switch';
 
 import routePath from '../../../config';
 
-import { toggleTheme } from '../../../store/reducers/themeSlice';
 import { Link, useLocation } from 'react-router-dom';
 import Badge from '@mui/material/Badge/Badge';
-import { Tooltip } from '@mui/material';
+import { Menu, MenuItem, Tooltip } from '@mui/material';
+import { toggleTheme } from '../../../store/reducers/themeDetails/themeSlice';
+import i18n from '../../../utils/localization/i18n';
+import { useTranslation } from 'react-i18next';
 
 const drawerWidth = 240;
 
@@ -103,15 +106,32 @@ interface MiniDrawerProps {
     children: React.ReactNode
 }
 
+const languageList: any[] = [
+    {
+        lable: "English",
+        avaiable: true,
+        code: "en"
+    },
+    {
+        lable: "සිංහල",
+        avaiable: true,
+        code: "sin"
+    }
+]
+
 const MiniDrawer: React.FC<MiniDrawerProps> = ({ children }) => {
     const theme = useTheme();
 
     const currentPath = useLocation().pathname;
+    const currentLanguage = i18n.language;
+    const { t } = useTranslation();
 
     const fullUrl = currentPath.split('/');
     const urlEntry = `/${fullUrl[1]}`
 
     const [open, setOpen] = React.useState(false);
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [anchorElLang, setAnchorElLang] = React.useState<null | HTMLElement>(null);
 
     const customTheme = useSelector((state: any) => state.theme);
 
@@ -126,6 +146,26 @@ const MiniDrawer: React.FC<MiniDrawerProps> = ({ children }) => {
         setOpen(false);
     };
 
+    const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleLangMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorElLang(event.currentTarget);
+    };
+
+    const handleLangClose = () => {
+        setAnchorElLang(null);
+    };
+
+    const changeLanguage = (lng: string) => {
+        i18n.changeLanguage(lng);
+        handleLangClose();
+    };
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
@@ -149,7 +189,7 @@ const MiniDrawer: React.FC<MiniDrawerProps> = ({ children }) => {
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}
                     >
-                        Cheers
+                        {t("common.Title")}
                     </Typography>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
@@ -175,14 +215,65 @@ const MiniDrawer: React.FC<MiniDrawerProps> = ({ children }) => {
                         </IconButton>
                         <IconButton
                             size="large"
+                            aria-label="show 2 languages"
+                            onClick={handleLangMenu}
+                        >
+                            <Badge badgeContent={2} color="error">
+                                <LanguageIcon />
+                            </Badge>
+                        </IconButton>
+                        <Menu
+                            id="menu-appbar"
+                            anchorEl={anchorElLang}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            open={Boolean(anchorElLang)}
+                            onClose={handleLangClose}
+                        >
+                            {languageList.map((item: any) =>
+                                <MenuItem
+                                    onClick={() => changeLanguage(item.code)}
+                                    selected={currentLanguage === item.code}
+                                >
+                                    {item.lable}
+                                </MenuItem>
+                            )}
+                        </Menu>
+                        <IconButton
+                            size="large"
                             edge="end"
                             aria-label="account of current user"
                             // aria-controls={menuId}
                             aria-haspopup="true"
-                        // onClick={handleProfileMenuOpen}
+                            onClick={handleMenu}
                         >
                             <AccountCircle />
                         </IconButton>
+                        <Menu
+                            id="menu-appbar"
+                            anchorEl={anchorEl}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            open={Boolean(anchorEl)}
+                            onClose={handleClose}
+                        >
+                            <MenuItem onClick={handleClose}>Profile</MenuItem>
+                            <MenuItem onClick={handleClose}>My account</MenuItem>
+                        </Menu>
                     </Box>
                 </Toolbar>
             </AppBar>

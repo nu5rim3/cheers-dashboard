@@ -39,13 +39,13 @@ const routePath: IRoutePath[] = [
         active: true,
         level: 0
     },
-    // {
-    //     label: 'Foods',
-    //     path: '/foods',
-    //     icon: <DinnerDiningIcon />,
-    //     active: false,
-    //     level: 0
-    // },
+    {
+        label: 'Foods',
+        path: '/foods',
+        icon: <DinnerDiningIcon />,
+        active: true,
+        level: 0
+    },
     // {
     //     label: 'Beverages',
     //     path: '/beverages',

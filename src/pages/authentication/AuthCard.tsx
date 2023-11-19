@@ -10,7 +10,9 @@ import { validationsSignIn } from './validation';
 import FormHelperText from '@mui/material/FormHelperText';
 import { useAuthSignInWithEmailAndPassword, useAuthSignInWithPopup } from "@react-query-firebase/auth";
 import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
-import { GoogleAuthProvider } from "firebase/auth";
+import { setUserDetails } from '../../store/reducers/userDetails/user.slice';
+import { ILoggedInUser } from '../../store/reducers/userDetails/user';
+import { useDispatch } from 'react-redux';
 
 const initialValue: ISignIn = {
   email: '',
@@ -20,6 +22,8 @@ const initialValue: ISignIn = {
 const AuthCard = () => {
 
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const [error, setError] = useState<boolean>(false);
 
@@ -45,8 +49,8 @@ const AuthCard = () => {
       setError(true);
     },
     onSuccess(userCredential: any) {
-      console.log("Valid action code!", userCredential);
-      navigate('/');
+      console.log('[userCredential] - ', userCredential);
+      generateAndSaveUser(userCredential);
     },
   });
 
@@ -55,8 +59,8 @@ const AuthCard = () => {
       setError(true);
     },
     onSuccess(userCredential: any) {
-      console.log("Valid action code!", userCredential);
-      navigate('/');
+      console.log('[userCredential] - ', userCredential);
+      generateAndSaveUser(userCredential);
     },
   });
 
@@ -76,6 +80,23 @@ const AuthCard = () => {
     mutationGoogle.mutate({
       provider: googleProvider
     })
+  }
+
+  const generateAndSaveUser = (userCredential: any) => {
+
+    const user: ILoggedInUser = {
+      uid: userCredential.user.uid,
+      displayName: userCredential.user.displayName,
+      accessToken: userCredential.user.accessToken,
+      email: userCredential.user.email,
+      photoURL: userCredential.user.photoURL,
+      phoneNumber: userCredential.user.phoneNumber
+    }
+
+    console.log('[USER] - ', user);
+
+    dispatch(setUserDetails(user));
+    navigate('/');
   }
 
   return (

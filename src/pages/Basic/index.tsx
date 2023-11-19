@@ -11,23 +11,25 @@ import ImageUpdate from './components/ImageUpdate';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import QRCode from 'qrcode';
+import { userSelector } from '../../store/reducers/userDetails/user.selector';
+import { useSelector } from 'react-redux';
+import { ILoggedInUser } from '../../store/reducers/userDetails/user';
 
 
 const Basic: React.FC = () => {
 
     const navigate = useNavigate();
     const [open, setOpen] = useState<boolean>(false);
-    const [userId, setUserId] = useState<string>('10');
     const [QRurl, setQRurl] = useState<string>('');
     const [QR, setQR] = useState<any>();
     const [isEdit, setIsEdit] = useState<boolean>(false);
-
+    const user: ILoggedInUser = userSelector();
 
     useEffect(() => {
         const baseUrl = window.location.href;
-        const fullUrl = baseUrl + 'preview/' + userId
+        const fullUrl = baseUrl + 'preview/' + user.uid
         setQRurl(fullUrl)
-    }, [])
+    }, [user])
 
     const onClickAdd = () => {
         setOpen(!open);
@@ -43,11 +45,10 @@ const Basic: React.FC = () => {
         console.log('[FUNC] - onSubmit')
         setOpen(!open);
         setIsEdit(false);
-
     }
 
     const onClickPerview = () => {
-        navigate('/preview/' + userId)
+        navigate('/preview/' + user?.uid)
     }
 
 
@@ -80,25 +81,24 @@ const Basic: React.FC = () => {
                                 Download QR
                             </Button>
                             :
-                            <Button variant="contained" startIcon={<QrCodeIcon />} onClick={onGenerateAndDownloadQR}>
+                            <Button variant="outlined" startIcon={<QrCodeIcon />} onClick={onGenerateAndDownloadQR}>
                                 Generate QR
                             </Button>
                         }
                     </Box>
                 </Box>
 
-                <ImagePreviewer id={userId} />
+                <ImagePreviewer id={user.uid} />
 
                 <FullModal
                     open={open}
                     title={isEdit ? 'Edit Menu' : 'Add Menu'}
                     toggleModal={onClickAdd}
-                    onSubmit={onSubmit}
                 >
-                    {isEdit ? <ImageUpdate onSubmit={onSubmit} /> :
-
+                    {isEdit ?
+                        <ImageUpdate onSubmit={onSubmit} />
+                        :
                         <ImageUploader onSubmit={onSubmit} />
-
                     }
                 </FullModal>
             </Box>

@@ -1,5 +1,5 @@
 import React, { memo, useState } from 'react'
-import { ProfileProps, IAddProfile } from '../../interface';
+import { ProfileProps, IProfile } from '../../interface';
 import { useTheme } from '@emotion/react';
 import { Box, Button, Checkbox, FormControlLabel, FormGroup, FormHelperText, FormLabel, Grid, Paper, Switch, TextField, useMediaQuery } from '@mui/material';
 import { useFormik } from 'formik';
@@ -11,7 +11,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import { useEffect } from 'react';
 
-const initialValues: IAddProfile = {
+const initialValues: IProfile = {
   name: '',
   description: '',
   type: [],
@@ -35,7 +35,7 @@ const initialValues: IAddProfile = {
   isActive: false
 }
 
-const AddProfile: React.FC<ProfileProps> = memo(({ id, onSubmit }) => {
+const AddProfile: React.FC<ProfileProps> = memo(({ id, onCreate, onUpdate }) => {
 
   const theme: any = useTheme();
   const mdMatch = useMediaQuery(theme.breakpoints.up("md"));
@@ -49,10 +49,7 @@ const AddProfile: React.FC<ProfileProps> = memo(({ id, onSubmit }) => {
     if (!isAddMode) {
       loadProfile(id);
     }
-  }, [])
-
-
-  console.log(isAddMode, id);
+  }, [id, isAddMode])
 
   const formik = useFormik({
     initialValues: initialValues,
@@ -65,7 +62,7 @@ const AddProfile: React.FC<ProfileProps> = memo(({ id, onSubmit }) => {
     }
   });
 
-  const onFormSubmit = (fields: IAddProfile) => {
+  const onFormSubmit = (fields: IProfile) => {
     if (isAddMode) {
       createItem(fields);
     } else {
@@ -74,15 +71,15 @@ const AddProfile: React.FC<ProfileProps> = memo(({ id, onSubmit }) => {
   }
 
   // create function
-  const createItem = (value: IAddProfile) => {
+  const createItem = (value: IProfile) => {
     console.log('[FUNC] - createItem - ', value)
-    // onSubmit();
+    onCreate(value);
   }
 
   // update function
-  const updateItem = (id: string, value: IAddProfile) => {
+  const updateItem = (id: string, value: IProfile) => {
     console.log('[FUNC] - updateItem - ', id, value)
-    // onSubmit();
+    onUpdate(id, value);
   }
 
   // load item detail

@@ -7,7 +7,7 @@ interface IImagePreviewer {
   id: string
 }
 
-const ImagePreviewer: React.FC <IImagePreviewer>= ({id}) => {
+const ImagePreviewer: React.FC<IImagePreviewer> = ({ id }) => {
 
   let { userId } = useParams();
 
@@ -18,12 +18,12 @@ const ImagePreviewer: React.FC <IImagePreviewer>= ({id}) => {
 
 
   useEffect(() => {
-    if(userId) {
+    if (userId) {
       getMenuDetails(userId);
     } else {
       getMenuDetails(id);
     }
-  }, [userId])
+  }, [id, userId])
 
 
   return (

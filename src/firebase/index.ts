@@ -4,11 +4,8 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getDatabase } from "firebase/database";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyCqlhGvLG1Xu5PgYiGrgkY9CYaNLOtanMo",
   authDomain: "cheers-2002d.firebaseapp.com",
@@ -16,7 +13,8 @@ const firebaseConfig = {
   storageBucket: "cheers-2002d.appspot.com",
   messagingSenderId: "112786245501",
   appId: "1:112786245501:web:81db0a4512be635e372e14",
-  measurementId: "G-V61D58F8QQ"
+  measurementId: "G-V61D58F8QQ",
+  databaseURL: "https://cheers-2002d-default-rtdb.asia-southeast1.firebasedatabase.app"
 };
 
 // Initialize Firebase
@@ -27,3 +25,4 @@ export const auth = getAuth();
 export const googleProvider = new GoogleAuthProvider();
 export const db = getFirestore(app);
 export const storage = getStorage(app);
+export const database = getDatabase(app);

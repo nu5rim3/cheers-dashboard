@@ -4,9 +4,9 @@ import Box from '@mui/material/Box/Box';
 import Grid from '@mui/material/Grid/Grid';
 import Header from '../../components/Header';
 import FullModal from '../../components/FullModal';
-// import ItemAddForm from './components/forms/ItemAddForm';
 import ItemEditForm from './components/forms/ItemEditForm';
 import TableView from './components/TableView';
+import useFoodServices from '../../firebase/services/food.services';
 
 const ItemAddForm = lazy(() => import('./components/forms/ItemAddForm'));
 
@@ -14,6 +14,7 @@ const Foods = () => {
 
     const [open, setOpen] = useState<boolean>(false);
     const [isEdit, setIsEdit] = useState<boolean>(false);
+    const { save, updateById } = useFoodServices();
 
     const onClickAdd = () => {
         setOpen(!open);
@@ -25,11 +26,14 @@ const Foods = () => {
         setIsEdit(true);
     }
 
-    const onSubmit = () => {
-        console.log('[FUNC] - onSubmit')
+    const onCreate = (data: IFood) => {
+        save(data)
         setOpen(!open);
         setIsEdit(false);
+    }
 
+    const onUpdate = (id: string, data: IFood) => {
+        updateById(id, data)
     }
 
     return (
@@ -37,7 +41,7 @@ const Foods = () => {
             <Box>
                 <Grid>
                     <Grid item xs={12}>
-                        <Header title={'Foods List'} onAddClick={onClickAdd} onEditClick={onClickEdit} />
+                        <Header title={'Foods List'} onAddClick={onClickAdd} />
                     </Grid>
                     <Grid item xs={12} sm={4}>
                         <TableView />
@@ -48,14 +52,13 @@ const Foods = () => {
 
             <FullModal
                 open={open}
-                title={isEdit? 'Edit Food': 'Add New Food'}
+                title={isEdit ? 'Edit Food' : 'Add New Food'}
                 toggleModal={onClickAdd}
-                onSubmit={onSubmit}
             >
-                {isEdit ? <ItemEditForm /> : 
+                {isEdit ? <ItemEditForm /> :
 
-                    <ItemAddForm onSubmit={onSubmit} />
-                
+                    <ItemAddForm onCreate={onCreate} onUpdate={onUpdate} />
+
                 }
             </FullModal>
         </>

@@ -21,11 +21,10 @@ interface FullmodalProps {
   open: boolean,
   title: string,
   toggleModal: () => void,
-  onSubmit: () => void,
   children: React.ReactNode
 }
 
-const FullModal: React.FC<FullmodalProps> = ({ open, title, toggleModal, children, onSubmit }) => {
+const FullModal: React.FC<FullmodalProps> = ({ open, title, toggleModal, children }) => {
 
 
   return (

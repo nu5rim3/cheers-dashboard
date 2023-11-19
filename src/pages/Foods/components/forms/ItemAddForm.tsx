@@ -15,6 +15,8 @@ import FormControlLabel from '@mui/material/FormControlLabel/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel/FormLabel';
 import FormHelperText from '@mui/material/FormHelperText/FormHelperText';
 import GroupRadioButton from '../../../../components/GroupRadioButton';
+import { userSelector } from '../../../../store/reducers/userDetails/user.selector';
+import { ILoggedInUser } from '../../../../store/reducers/userDetails/user';
 
 // TODO: add remaining feilds then remove the comment in the validation. validation error msg must be handle
 
@@ -52,14 +54,16 @@ const initialValues: IFood = {
 //   isActive: false
 // }
 interface ItemAddFormProps {
-  onSubmit: () => void
+  onCreate: (data: IFood) => void;
+  onUpdate: (id: string, data: IFood) => void;
 }
 
-const ItemAddForm: React.FC<ItemAddFormProps> = ({ onSubmit }) => {
+const ItemAddForm: React.FC<ItemAddFormProps> = ({ onCreate }) => {
 
   const theme: any = useTheme();
   const mdMatch = useMediaQuery(theme.breakpoints.up("md"));
-  const [imageUrl, setImageUrl] = useState<string>('')
+  const [imageUrl, setImageUrl] = useState<string>('');
+  const user: ILoggedInUser = userSelector();
 
   const formik = useFormik({
     initialValues: initialValues,
@@ -75,7 +79,7 @@ const ItemAddForm: React.FC<ItemAddFormProps> = ({ onSubmit }) => {
   // uploading function
   const uploadItem = (value: IFood) => {
     console.log('[FUNC] - uploadItem - ', value)
-    onSubmit();
+    onCreate({ ...value, uid: user.uid });
   }
 
   // remove image url function

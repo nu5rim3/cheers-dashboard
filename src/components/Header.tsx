@@ -12,8 +12,8 @@ interface HeaderProps {
     title: string,
     primaryActionTitle?: string,
     secondayActionTitle?: string,
-    onAddClick: () => void,
-    onEditClick: () => void,
+    onAddClick?: () => void,
+    onEditClick?: () => void,
 }
 
 const Header: React.FC<HeaderProps> = memo(({ title, primaryActionTitle, secondayActionTitle, onAddClick, onEditClick }) => {
@@ -34,16 +34,18 @@ const Header: React.FC<HeaderProps> = memo(({ title, primaryActionTitle, seconda
                     </Typography>
                 </Grid>
                 <Grid item xs={12} sm={6} display={'flex'} justifyContent={sm ? 'flex-end' : 'flex-start'}>
-                    <Box mr={1}>
-                        <Button
-                            color='primary'
-                            variant='outlined'
-                            startIcon={<ModeEditOutlineIcon />}
-                            onClick={onEditClick}
-                        >
-                            {secondayActionTitle}
-                        </Button>
-                    </Box>
+                    {onEditClick &&
+                        <Box mr={1}>
+                            <Button
+                                color='primary'
+                                variant='outlined'
+                                startIcon={<ModeEditOutlineIcon />}
+                                onClick={onEditClick}
+                            >
+                                {secondayActionTitle}
+                            </Button>
+                        </Box>
+                    }
                     <Box>
                         <Button
                             color='primary'
