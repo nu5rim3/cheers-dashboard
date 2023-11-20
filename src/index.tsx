@@ -4,9 +4,11 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import { store } from './store';
+import { persistor, store } from './store';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { PersistGate } from 'redux-persist/integration/react';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const queryClient = new QueryClient();
 
@@ -16,11 +18,13 @@ const root = ReactDOM.createRoot(
 root.render(
   <QueryClientProvider client={queryClient}>
     <Provider store={store}>
-      <BrowserRouter>
-        <React.StrictMode>
-          <App />
-        </React.StrictMode>
-      </BrowserRouter>
+      <PersistGate loading={<CircularProgress />} persistor={persistor}>
+        <BrowserRouter>
+          <React.StrictMode>
+            <App />
+          </React.StrictMode>
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   </QueryClientProvider>
 );
